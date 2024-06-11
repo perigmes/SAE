@@ -11,7 +11,7 @@ class ProductsStore {
         this._loading = true;
         this._error = null;
         makeAutoObservable(this);
-        this.loadStudents();
+        this.loadProducts();
     }
 
     async loadProducts() {
