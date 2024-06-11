@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Groups from "./pages/Groups";
-import StudentsList from "./pages/StudentsList";
+import ProductsList from "./pages/ProductsList";
 import StudentUpdate from "./pages/StudentUpdate";
 import Page404 from "./pages/Page404";
 import App from "./App";
@@ -18,8 +18,8 @@ export const router = createBrowserRouter([
                 path: "/groups",
                 element: <Groups />
             }, {
-                path: "/students/groups?/:group?",
-                element: <StudentsList />
+                path: "/products/groups?/:group?",
+                element: <ProductsList />
             }, {
                 path: "/students/:id/update",
                 element: <StudentUpdate />

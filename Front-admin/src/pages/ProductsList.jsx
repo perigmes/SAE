@@ -43,7 +43,7 @@ function ProductsList() {
             })
           : selectedGroup
               .filter((product) =>
-                product.name.toLowerCase().includes(search.toLowerCase())
+                product.title.toLowerCase().includes(search.toLowerCase())
               )
               .map((product) => {
                 return (
