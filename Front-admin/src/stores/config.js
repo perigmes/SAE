@@ -1,0 +1,1 @@
+export const API_URL_STUDENTS = 'https://66350f479bb0df2359a3b1e9.mockapi.io/students';
