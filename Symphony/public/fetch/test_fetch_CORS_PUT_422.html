@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<button type="button" onclick="test()">Send</button>
+<h1>Json</h1>
+<div id="json"></div>
+<h1>Response</h1>
+<div id="response"></div>
+
+<script>
+async function test() { 
+    let data = {
+        article_type: "musique", // ou "livre"
+        titre: "",
+        artiste: "New Artist",
+        prix: -20,
+        disponibilite: -10,
+        image: "new_image_url",
+        dateDeParution: "24/05/2024"
+    };
+    document.getElementById("json").innerHTML = JSON.stringify(data, null, 2);
+
+    try {
+        let response = await fetch("http://localhost:8000/wp-json/wc/v3/products/55897821", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            let responseData = await response.json();
+            document.getElementById("response").innerHTML = JSON.stringify(responseData, null, 2);
+        } else {
+            let errorText = await response.text();
+            let errorDetails;
+            try {
+                errorDetails = JSON.parse(errorText);
+            } catch (e) {
+                errorDetails = errorText;
+            }
+            document.getElementById("response").innerHTML = `Error code ${response.status}: ${response.statusText}. Details: ${JSON.stringify(errorDetails, null, 2)}`;
+        }
+    } catch (error) {
+        document.getElementById("response").innerHTML = "Request failed: " + error.message;
+    }
+}
+</script>
+
+</body>
+</html>

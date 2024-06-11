@@ -1,0 +1,13 @@
+{ 													
+	"folders": [										
+		{										        
+			"path": "."									
+	    }								                
+	],                                                  
+	"settings": {	                                    
+	    "intelephense.environment.includePaths": [	    
+	      	"C:\\Users\\Gabin\\symfony\\vendor"       
+	    ],                                       	    
+	    "php.suggest.basic": false,                     
+	}            	                                    
+}              	                                    
