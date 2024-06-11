@@ -2,9 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Groups from "./pages/Groups";
 import ProductsList from "./pages/ProductsList";
-import StudentUpdate from "./pages/StudentUpdate";
 import Page404 from "./pages/Page404";
 import App from "./App";
+import ProductUpdate from "./pages/ProductUpdate";
 
 export const router = createBrowserRouter([
     {
@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
                 element: <ProductsList />
             }, {
                 path: "/students/:id/update",
-                element: <StudentUpdate />
+                element: <ProductUpdate />
             }, {
                 path: "*",
                 element: <Page404 />

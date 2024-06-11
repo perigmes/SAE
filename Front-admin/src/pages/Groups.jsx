@@ -1,35 +1,33 @@
-import React, { useContext, useEffect } from "react";
-import Nav from "../components/Nav";
-import { GlobalContext } from "../App";
+import React from "react";
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import { useStudentStore } from "../stores";
+import { useProductStore } from "../stores";
 
 function Groups() {
-  let studentStore = useStudentStore();
+  let productStore = useProductStore();
   return (
     <>
-      <h1>Les groupes de {studentStore.course}</h1>
+      <h1>Les catégories</h1>
       <div className="mt-8 text-2xl sm:text-3xl flex gap-x-20 justify-center flex-wrap">
         <div className="flex gap-x-4 justify-center font-bold">
-          <span>{studentStore.groups.length}</span>
-          <span>groupes</span>
+          <span>{productStore.groups.length}</span>
+          <span>catégories</span>
         </div>
         <div className="flex gap-x-4 justify-center font-bold">
-          <span>{studentStore.students.length}</span>
-          <span>étudiants</span>
+          <span>{productStore.products.length}</span>
+          <span>produits</span>
         </div>
       </div>
-      {studentStore.groups.length > 0 && (
+      {productStore.groups.length > 0 && (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 w-max mx-auto gap-6 mt-8 text-2xl sm:text-3xl">
-          {studentStore.groups.map((group) => (
+          {productStore.groups.map((group) => (
             <div
               key={group}
               className="flex flex-col items-center bg-slate-400 p-4 rounded-2xl"
             >
               <p>{group}</p>
-              <p>{studentStore.getStudentByGroup(group).length} étudiants</p>
-              <Link to={`/students/groups/${group}`}>Voir les étudiants</Link>
+              <p>{productStore.getProductsByGroup(group).length} produits</p>
+              <Link to={`/products/groups/${group}`}>Voir les produits</Link>
             </div>
           ))}
         </div>
