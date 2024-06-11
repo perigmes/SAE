@@ -1,27 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
-import { GlobalContext } from "../App";
 import { observer } from "mobx-react";
-import { useStudentStore } from "../stores";
+import { useProductStore } from "../stores";
 
-function StudentUpdate() {
-  const  studentStore  = useStudentStore();
+function ProductUpdate() {
+  const  productStore  = useProductStore();
   const navigate = useNavigate();
   let { id } = useParams();
-  let [student, setStudent] = useState(studentStore.getStudentById(id));
+  let [product, setProduct] = useState(productStore.getProductById(id));
   let [error, setError] = useState(null);
   useEffect(
-    () => setStudent(studentStore.getStudentById(id)),
-    [id, studentStore.students]
+    () => setProduct(productStore.getProductById(id)),
+    [id, productStore, productStore.products]
   );
 
   let handleSubmit = async (event) => {
     event.preventDefault();
     let data = Object.fromEntries(new FormData(event.target));
-    let { success, message } = await studentStore.updateStudent({
+    let { success, message } = await productStore.updateProduct({
       id,
       ...data,
     });
@@ -34,47 +33,48 @@ function StudentUpdate() {
 
   return (
     <>
-      {student ? (
+      {product ? (
         <main>
-          <h1>Fiche étudiant {student.id}</h1>
+          <h1>Fiche Produit {product.id}</h1>
           <form
             action="#"
             className="grid sm:grid-cols-2 gap-1 sm:gap-4 mx-auto mt-8 w-fit"
             onSubmit={handleSubmit}
           >
-            <label htmlFor="fistName">Nom</label>
+            <label htmlFor="fistName">Titre</label>
 
             <input
               type="text"
-              name="firstName"
-              id="firstName"
+              name="title"
+              id="title"
               required
               minLength={2}
               maxLength={25}
-              title="Le nom doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
-              defaultValue={student.firstName}
+              title="Le titre doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
+              defaultValue={product.title}
             />
-            <label htmlFor="lastName">Prénom</label>
+            <label htmlFor="Description">Description</label>
 
             <input
               type="text"
-              name="lastName"
-              id="lastName"
+              name="description"
+              id="description"
               required
               minLength={2}
               maxLength={25}
-              title="Le prénom doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
-              defaultValue={student.lastName}
+              title="La description doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
+              defaultValue={product.description}
             />
-            <label htmlFor="group">Groupe</label>
+            <label htmlFor="group">catégorie</label>
 
             <select
-              name="group"
-              id="group"
-              defaultValue={student.group}
+              name="categories"
+              id="categories"
+              defaultValue={product.group}
               required
+              multiple="true"
             >
-              {studentStore.groups.map((group) => (
+              {productStore.groups.map((group) => (
                 <option key={group} value={group}>
                   {group}
                 </option>
@@ -89,7 +89,7 @@ function StudentUpdate() {
                 Annuler <FontAwesomeIcon icon={faRotateLeft} />
               </button>
               <button className="btn" type="submit">
-                Enregistrer <FontAwesomeIcon icon={faPaperPlane} />
+                Sauvegarder <FontAwesomeIcon icon={faPaperPlane} />
               </button>
             </div>
             {error && (
@@ -100,9 +100,9 @@ function StudentUpdate() {
           </form>
         </main>
       ) : (
-        <p>Etudiant inexistant</p>
+        <p>Produit inexistant</p>
       )}
     </>
   );
 }
-export default observer(StudentUpdate);
+export default observer(ProductUpdate);
