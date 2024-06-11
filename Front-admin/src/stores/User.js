@@ -1,14 +1,15 @@
 import { makeAutoObservable } from "mobx";
 
 
-class Student {
-    _id; _mail; _mdp; _nom; _pp
-    constructor({ id, mail, mdp, nom, pp }) {
+class User {
+    _id; _mail; _mdp; _nom; _pp; _role
+    constructor({ id, mail, mdp, nom, pp, role }) {
         this._id = id;
         this._mail = mail;
         this._mdp = mdp;
         this._nom = nom;
         this._pp = pp;
+        this._role = role;
         makeAutoObservable(this);
     }
 
@@ -27,23 +28,22 @@ class Student {
     get pp() {
         return this._pp;
     }
-
-    get fullName() {
-        return `${this._mdp} ${this._mail}`;
-    }
-
+    get role() {
+        return this._role;
+    } 
     set mail(value) {
         this._mail = value;
     }
-
     set mdp(value) {
         this._mdp = value;
     }
-
     set nom(value) {
         this._nom = value;
+    }
+    set role(value) {
+        this._role = value;
     }
 
 
 }
-export default Student;
+export default User;
