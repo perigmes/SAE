@@ -1,11 +1,11 @@
 import { createContext } from "react";
-import StudentStore from "./StudentStore"
+import ProductsStore from "./ProductsStore"
 import { useContext } from "react";
 
 
 const GlobalContext = createContext();
 const stores = {
-    studentStore: new StudentStore()
+    productStore: new ProductsStore()
 }
 export const StoreProvider = ({ children }) => (
     <GlobalContext.Provider value={stores}>
@@ -15,7 +15,7 @@ export const StoreProvider = ({ children }) => (
 export const useStudentStore = () => {
     const context = useContext(GlobalContext);
     if (!context) {
-        throw new Error("useStudentStore must be within a StoreProvider");
+        throw new Error("useProductStore must be within a StoreProvider");
     }
     return context.studentStore;
 };
