@@ -26,7 +26,7 @@ function Groups() {
               className="flex flex-col items-center bg-slate-400 p-4 rounded-2xl"
             >
               <p>{group}</p>
-              <p>{productStore.getProductsByGroup(group).length} produits</p>
+              <p>{productStore.getProductByGroup(group).length} produits</p>
               <Link to={`/products/groups/${group}`}>Voir les produits</Link>
             </div>
           ))}
