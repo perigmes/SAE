@@ -12,12 +12,12 @@ export const StoreProvider = ({ children }) => (
         {children}
     </GlobalContext.Provider>)
 
-export const useStudentStore = () => {
+export const useProductStore = () => {
     const context = useContext(GlobalContext);
     if (!context) {
         throw new Error("useProductStore must be within a StoreProvider");
     }
-    return context.studentStore;
+    return context.productStore;
 };
 
 

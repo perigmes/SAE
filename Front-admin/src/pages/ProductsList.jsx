@@ -1,17 +1,16 @@
 import { useParams } from "react-router-dom";
-import Nav from "../components/Nav";
 import { useState, useEffect } from "react";
 import { observer } from "mobx-react";
-import StudentResume from "../components/StudentResume";
+import ProductResume from "../components/ProductResume";
 import SearchBar from "../components/SearchBar";
-import { useStudentStore } from "../stores";
+import { useProductStore } from "../stores";
 
-function StudentsList() {
-  let studentStore = useStudentStore();
+function ProductsList() {
+  let productStore = useProductStore();
 
   let { group } = useParams();
   let [selectedGroup, setSelectedGroup] = useState(
-    group ? studentStore.getStudentByGroup(group) : studentStore.students
+    group ? productStore.getProductByGroup(group) : productStore.students
   );
   let [search, setSearch] = useState("");
 
@@ -21,35 +20,35 @@ function StudentsList() {
   };
   useEffect(() => {
     setSelectedGroup(
-      group ? studentStore.getStudentByGroup(group) : studentStore.students
+      group ? productStore.getProductByGroup(group) : productStore.products
     );
-  }, [group, studentStore.students]);
+  }, [group, productStore, productStore.products]);
 
   return (
     <>
       <h1>
-        Liste étudiants
+        Liste Produits
         {group && ` ${group}`}
       </h1>
       <SearchBar nbCarMin={3} onChange={handleChange}></SearchBar>
 
       <ul className="p-4 grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 justify-content-center gap-x-4 gap-y-8">
         {!search
-          ? selectedGroup.map((student) => {
+          ? selectedGroup.map((product) => {
               return (
-                <li key={student.id}>
-                  <StudentResume student={student}></StudentResume>
+                <li key={product.id}>
+                  <ProductResume product={product}></ProductResume>
                 </li>
               );
             })
           : selectedGroup
-              .filter((student) =>
-                student.fullName.toLowerCase().includes(search.toLowerCase())
+              .filter((product) =>
+                product.name.toLowerCase().includes(search.toLowerCase())
               )
-              .map((student) => {
+              .map((product) => {
                 return (
-                  <li key={student.id}>
-                    <StudentResume student={student}></StudentResume>
+                  <li key={product.id}>
+                    <ProductResume product={product}></ProductResume>
                   </li>
                 );
               })}
@@ -57,4 +56,4 @@ function StudentsList() {
     </>
   );
 }
-export default observer(StudentsList);
+export default observer(ProductsList);
