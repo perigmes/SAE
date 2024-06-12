@@ -10,6 +10,7 @@ function ProductUpdate() {
   const  productStore  = useProductStore();
   const navigate = useNavigate();
   let { id } = useParams();
+  console.log(id);
   let [product, setProduct] = useState(productStore.getProductById(id));
   let [error, setError] = useState(null);
   useEffect(
@@ -35,7 +36,7 @@ function ProductUpdate() {
     <>
       {product ? (
         <main>
-          <h1>Fiche Produit {product.id}</h1>
+          <h1>Fiche Produit RP {product.id}</h1>
           <form
             action="#"
             className="grid sm:grid-cols-2 gap-1 sm:gap-4 mx-auto mt-8 w-fit"

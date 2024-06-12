@@ -56,6 +56,12 @@ class ProductsStore {
     }
 
     getProductById(id) {
+        console.log(this._products);
+       console.log( this._products.find((product) => {
+        console.log("Produit ID:", product.id, "Type:", typeof product.id);
+        console.log("Cherché ID:", id, "Type:", typeof id);
+        return product.id === id}))
+
         return this._products.find((product) => product.id === id)
     }
 

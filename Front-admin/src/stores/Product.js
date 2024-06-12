@@ -3,12 +3,12 @@ import { makeAutoObservable } from "mobx";
 
 class Product {
     _id; _title; _price; _group; _photo;_categories;_description; 
-    constructor({ id, title, price, disponibilite, photo,categories,description }) {
+    constructor({ id, titre, prix, disponibilite, image,categories,description }) {
         this._id = id;
-        this.title = title;
-        this.price = price;
+        this._title = titre;
+        this._price = prix;
         this._disponibilite = disponibilite;
-        this._photo = photo;
+        this._photo = image;
         this._categories = categories;
         this._description = description;
         makeAutoObservable(this);

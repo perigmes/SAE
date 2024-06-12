@@ -69,7 +69,7 @@ class ApiRestController extends AbstractController
 				$entity = new Musique() ;
 				$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
 				$formBuilder->add("id", TextType::class) ;
-				$formBuilder->add("titre", TextType::class) ;
+				$formBuilder->add("title", TextType::class) ;
 				$formBuilder->add("artiste", TextType::class) ;
 				$formBuilder->add("prix", NumberType::class) ;
 				$formBuilder->add("disponibilite", IntegerType::class) ;
@@ -126,7 +126,7 @@ class ApiRestController extends AbstractController
 				$entity = new Livre() ;
 				$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
 				$formBuilder->add("id", TextType::class) ;
-				$formBuilder->add("titre", TextType::class) ;
+				$formBuilder->add("title", TextType::class) ;
 				$formBuilder->add("auteur", TextType::class) ;
 				$formBuilder->add("prix", NumberType::class) ;
 				$formBuilder->add("disponibilite", IntegerType::class) ;
@@ -280,14 +280,14 @@ class ApiRestController extends AbstractController
 		]);
 
 		if ($article instanceof Musique) {
-			$formBuilder->add("titre", TextType::class);
+			$formBuilder->add("title", TextType::class);
 			$formBuilder->add("artiste", TextType::class);
 			$formBuilder->add("prix", NumberType::class);
 			$formBuilder->add("disponibilite", IntegerType::class);
 			$formBuilder->add("image", TextType::class);
 			$formBuilder->add("dateDeParution", TextType::class);
 		} elseif ($article instanceof Livre) {
-			$formBuilder->add("titre", TextType::class);
+			$formBuilder->add("title", TextType::class);
 			$formBuilder->add("auteur", TextType::class);
 			$formBuilder->add("prix", NumberType::class);
 			$formBuilder->add("disponibilite", IntegerType::class);
@@ -353,18 +353,18 @@ class ApiRestController extends AbstractController
         $formBuilder = $this->createFormBuilder($article, ['csrf_protection' => false]);
 
         if ($article instanceof Musique) {
-            $formBuilder->add("titre", TextType::class);
+            $formBuilder->add("title", TextType::class);
             $formBuilder->add("artiste", TextType::class);
-            $formBuilder->add("prix", NumberType::class);
+            $formBuilder->add("price", NumberType::class);
             $formBuilder->add("disponibilite", IntegerType::class);
-            $formBuilder->add("image", TextType::class);
+            $formBuilder->add("photo", TextType::class);
             $formBuilder->add("dateDeParution", TextType::class);
         } elseif ($article instanceof Livre) {
-            $formBuilder->add("titre", TextType::class);
+            $formBuilder->add("title", TextType::class);
             $formBuilder->add("auteur", TextType::class);
-            $formBuilder->add("prix", NumberType::class);
+            $formBuilder->add("price", NumberType::class);
             $formBuilder->add("disponibilite", IntegerType::class);
-            $formBuilder->add("image", TextType::class);
+            $formBuilder->add("photo", TextType::class);
             $formBuilder->add("ISBN", TextType::class, ['required' => true]);
             $formBuilder->add("nbPages", IntegerType::class);
             $formBuilder->add("dateDeParution", TextType::class);
