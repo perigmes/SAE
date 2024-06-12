@@ -18,10 +18,10 @@ class Product {
         return this._id;
     }
     get title() {
-        return this.title;
+        return this._title;
     }
     get price() {
-        return this.price;
+        return this._price;
     }
     get disponibilite() {
         return this.disponibilite;

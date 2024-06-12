@@ -24,9 +24,9 @@ function Nav() {
           className={({ isActive }) => [
             isActive ? "active" : "text-neutral-950",
           ]}
-          to={"/students"}
+          to={"/products"}
         >
-          Etudiant
+          Produits
         </NavLink>
       </ul>
     </nav>

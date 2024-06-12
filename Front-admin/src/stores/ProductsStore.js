@@ -5,7 +5,7 @@ import Product from "./Product";
 class ProductsStore {
     _loading;
     _error;
-    _students;
+    _products;
     constructor() {
         this._products = [];
         this._loading = true;
@@ -33,6 +33,7 @@ class ProductsStore {
     
 
     get products() {
+        console.log(this._products);
         return this._products;
     }
 

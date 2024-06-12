@@ -10,8 +10,9 @@ function ProductsList() {
 
   let { group } = useParams();
   let [selectedGroup, setSelectedGroup] = useState(
-    group ? productStore.getProductByGroup(group) : productStore.students
+    group ? productStore.getProductByGroup(group) : productStore.products
   );
+  
   let [search, setSearch] = useState("");
 
   let handleChange = (event) => {

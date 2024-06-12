@@ -20,8 +20,12 @@ export const router = createBrowserRouter([
             }, {
                 path: "/products/groups?/:group?",
                 element: <ProductsList />
+            },
+            {
+                path: "/products",
+                element: <ProductsList />
             }, {
-                path: "/students/:id/update",
+                path: "/products/:id/update",
                 element: <ProductUpdate />
             }, {
                 path: "*",
