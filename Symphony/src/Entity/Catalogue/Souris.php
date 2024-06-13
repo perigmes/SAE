@@ -8,86 +8,61 @@ use Doctrine\ORM\Mapping as ORM;
 class Souris extends Article
 {
     #[ORM\Column(length: 255,name: 'connectivite')]
-    private ?int $connectivite = null;
+    private ?string $connectivite = null;
 
     #[ORM\Column(length: 255, name: 'usage')]
-    private ?array $usage = null;
+    private ?string $usage = null;
 
     #[ORM\Column(length: 255, name: 'marque')]
     private ?string $marque = null;
     
     #[ORM\Column(length: 255, name: 'matiere')]
     private ?string $matiere = null;
-
-    #[ORM\Column(length: 255, name: 'fabrication')]
-    private ?string $fabrication = null;
     
-    public function getPoids(): ?int
+    public function getConnectivite(): ?string
     {
-        return $this->poids;
+        return $this->connectivite;
     }
 
-    public function setPoids(string $poids): static
+    public function setConnectivite(string $connectivite): static
     {
-        $this->poids = $poids;
+        $this->connectivite = $connectivite;
 
         return $this;
     }
 
-    public function getDim(): ?array
+    public function getUsage(): ?string
     {
-        return $this->dim;
+        return $this->usage;
     }
 
-    public function setDim(string $dim): static
+    public function setUsage(string $usage): static
     {
-        $this->dim = $dim;
+        $this->usage = $usage;
 
         return $this;
     }
 
-    public function getNormes(): ?string
+    public function getMarque(): ?string
     {
-        return $this->normes;
+        return $this->marque;
     }
 
-    public function setNormes(int $normes): static
+    public function setMarque(string $marque): static
     {
-        $this->normes = $normes;
+        $this->marque = $marque;
 
         return $this;
     }
 
-    public function getIsRecyclable(): ?bool
-    {
-        return $this->recyclable;
-    }
-
-    public function setIsRecyclable(bool $recyclable):static
-    {
-        $this->recyclable = $recyclable;
-
-        return $this;
-    }
     public function getMatiere(): ?string
     {
         return $this->matiere;
     }
 
-    public function setMatiere(bool $matiere):static
+    public function setMatiere(string $matiere):static
     {
         $this->matiere = $matiere;
-
-        return $this;
-    }
-    public function getFabrication(): ?string
-    {
-        return $this->fabrication;
-    }
-
-    public function setFabrication(bool $fabrication):static
-    {
-        $this->fabrication = $fabrication;
 
         return $this;
     }
