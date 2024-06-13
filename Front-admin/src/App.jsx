@@ -3,6 +3,7 @@ import {  useProductStore } from "./stores/index";
 import { Outlet } from "react-router-dom";
 import Nav from "./components/Nav";
 import { observer } from "mobx-react";
+import ProductUpdate from "./pages/ProductUpdate";
 
 function App() {
   let productStore = useProductStore();
@@ -10,12 +11,11 @@ function App() {
       <>
         <Nav />
         <main className="den">
-          <div className="dnc">
-          <div className="ari arr cex ddc ddo">
-
-          { productStore.loading ?  <p>En cours de chargement</p> : <Outlet />}</div>        </div>
-
+        
+          { productStore.loading ?  <p>En cours de chargement</p> : <Outlet />}
+         
         </main>
+       
       </>
   );
 }

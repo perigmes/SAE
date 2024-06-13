@@ -66,6 +66,7 @@ class ProductsStore {
     }
 
     async updateProduct(data) {
+        console.log(data)
         let product = this.getProductById(data.id);
         if (!product) {
             return { success: false, message: "Produit inexistant" };

@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Groups from "./pages/Groups";
-import ProductsList from "./pages/ProductsList";
+import Products from "./pages/Products";
 import Page404 from "./pages/Page404";
 import App from "./App";
 import UserUpdate from "./pages/UserUpdate";
-import ProductUpdate from "./pages/ProductUpdate";
 import UsersList from "./pages/UsersList";
 
 export const router = createBrowserRouter([
@@ -29,15 +28,12 @@ export const router = createBrowserRouter([
                 element: <Groups />
             }, {
                 path: "/products/groups?/:group?",
-                element: <ProductsList />
+                element: <Products />
             },
             {
                 path: "/products",
-                element: <ProductsList />
-            }, {
-                path: "/products/:id/update",
-                element: <ProductUpdate />
-            }, {
+                element: <Products />
+            },{
                 path: "*",
                 element: <Page404 />
             }

@@ -4,10 +4,10 @@ import { observer } from "mobx-react";
 import ProductResume from "../components/ProductResume";
 import SearchBar from "../components/SearchBar";
 import { useProductStore } from "../stores";
+import PropTypes from 'prop-types';
 
-function ProductsList() {
+function ProductsList({selectProduct}) {
   let productStore = useProductStore();
-
   let { group } = useParams();
   let [selectedGroup, setSelectedGroup] = useState(
     group ? productStore.getProductByGroup(group) : productStore.products
@@ -37,7 +37,7 @@ function ProductsList() {
         {!search
           ? selectedGroup.map((product) => {
               return (
-                <li key={product.id} className="eq lx ys acd ach adu aln avl bbi">
+                <li key={product.id} className="eq lx ys acd ach adu aln avl bbi" onClick={()=>selectProduct(product.id)}>
                   <ProductResume product={product}></ProductResume>
                 </li>
               );
@@ -48,7 +48,8 @@ function ProductsList() {
               )
               .map((product) => {
                 return (
-                  <li key={product.id}>
+                  <li key={product.id} onClick={()=>{
+                  selectProduct(product.id)}}>
                     <ProductResume product={product}></ProductResume>
                   </li>
                 );
@@ -57,4 +58,9 @@ function ProductsList() {
     </>
   );
 }
+ProductsList.propTypes ={
+  selectProduct:PropTypes.func,
+}
+
 export default observer(ProductsList);
+

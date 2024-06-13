@@ -6,19 +6,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useProductStore } from "../stores";
 
-function ProductUpdate() {
+function ProductUpdate({productSelected,validate}) {
   const productStore = useProductStore();
   const navigate = useNavigate();
-  let { id } = useParams();
-  console.log(id);
-  let [product, setProduct] = useState(productStore.getProductById(id));
+  let [product, setProduct] = useState(null);
   let [error, setError] = useState(null);
   useEffect(
-    () => setProduct(productStore.getProductById(id)),
-    [id, productStore, productStore.products]
+    () => setProduct(productStore.getProductById(productSelected)),
+    [productSelected, productStore, productStore.products]
   );
 
   let handleSubmit = async (event) => {
+    const id= productSelected;
     event.preventDefault();
     let data = Object.fromEntries(new FormData(event.target));
     let { success, message } = await productStore.updateProduct({
@@ -26,7 +25,7 @@ function ProductUpdate() {
       ...data,
     });
     if (success) {
-      navigate(-1);
+      validate()
     } else {
       setError(message);
     }
@@ -38,11 +37,12 @@ function ProductUpdate() {
         <main>
           <h1>Fiche Produit RP {product.id}</h1>
           <form
+          key={product.id}
             action="#"
             className="grid sm:grid-cols-2 gap-1 sm:gap-4 mx-auto mt-8 w-fit"
             onSubmit={handleSubmit}
           >
-            <label htmlFor="fistName">Titre</label>
+            <label htmlFor="title">Titre</label>
 
             <input
               type="text"
@@ -54,7 +54,7 @@ function ProductUpdate() {
               title="Le titre doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
               defaultValue={product.title}
             />
-            <label htmlFor="Description">Description</label>
+            <label htmlFor="description">Description</label>
 
             <textarea
               type="text"
@@ -65,14 +65,14 @@ function ProductUpdate() {
               title="La description doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
               defaultValue={product.description}
             />
-            <label htmlFor="cayegories">catégorie</label>
+            <label htmlFor="categories">catégorie</label>
 
             <select
               name="categories"
               id="categories"
-              defaultValue={product.group}
+              defaultValue={product.categories}
               required
-              multiple="true"
+              multiple={true}
             >
               {productStore.groups.map((group) => (
                 <option key={group} value={group}>

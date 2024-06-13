@@ -41,10 +41,10 @@ class Product {
     }
 
     set title(value) {
-        this._name = value;
+        this._title = value;
     }
     set price(value) {
-        this._prix = value;
+        this._price = value;
     }
     set disponibilite(value) {
         this._disponibilite = value;
