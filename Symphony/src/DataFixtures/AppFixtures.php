@@ -14,6 +14,8 @@ use App\Entity\Catalogue\Livre;
 use App\Entity\Catalogue\Musique;
 use App\Entity\Catalogue\Piste;
 use App\Entity\Catalogue\Canard;
+use App\Entity\Catalogue\Rat;
+use App\Entity\Catalogue\Souris;
 
 use Psr\Log\LoggerInterface;
 
@@ -67,8 +69,57 @@ Tous nos canards sont homologués CE (Communauté Européenne), conformément à
 ");
 			$entityCanard->setDisponibilite(100);
 			$entityCanard->setImage("https://www.parisduckstore.fr/wp-content/uploads/2020/03/1607_hr.jpg");
-
 			$manager->persist($entityCanard);
+
+
+			$entitySouris = new Souris();
+			$entitySouris->setId(358614889);
+			$entitySouris->setCategorie(["Souris"]);
+			$entitySouris->setTitre("DeathAdder Essential");
+			$entitySouris->setPrix("25.25");
+			$entitySouris->setDisponibilite(23);
+			$entitySouris->setConnectivite("Filaire USB");
+			$entitySouris->setUsage("Gaming");
+			$entitySouris->setMarque("Razer");
+			$entitySouris->setMatiere("Plastique");
+			$entitySouris->setDesc("Véritable capteur optique de 6 400 DPI Pour des balayages rapides et précis: Gardez toujours le contrôle. La Razer DeathAdder Essential dispose d'un véritable capteur optique de 6 400 DPI avec une solide réputation de haute performance éprouvée pour des balayages rapides et précis. Cela vous permet un contrôle fluide et facile malgré la complexité de la bataille.
+    Forme ergonomique Pour profiter confortablement de longues heures de jeu: Soyez hautement performant pendant les marathons de jeu. Sa forme ergonomique s'adapte facilement à vos mains, de sorte que vous soyez toujours d'attaque au cœur de la bataille pendant de longues heures de jeu.
+    Haute durabilité Pour une souris de jeu conçue pour durer: La Razer DeathAdder Essential est conçue pour une grande durabilité afin de maintenir une performance de haute qualité pendant les sessions de jeu intenses. Ses 5 boutons Hyperesponse ont été testés en laboratoire pour résister jusqu'à 10 millions de clics afin de s'assurer qu'il s'agit de la meilleure souris de combat");
+			$entitySouris->setImage("https://m.media-amazon.com/images/I/81LFjhG2I0L._AC_SL1500_.jpg");
+			$manager->persist($entitySouris);
+
+
+			$entitySouris = new Souris();
+			$entitySouris->setId(85456987);
+			$entitySouris->setCategorie(["Souris"]);
+			$entitySouris->setTitre("Rat X3");
+			$entitySouris->setPrix("159.99");
+			$entitySouris->setDisponibilite(2);
+			$entitySouris->setConnectivite("Filaire USB");
+			$entitySouris->setUsage("Gaming");
+			$entitySouris->setMarque("Rat X3");
+			$entitySouris->setMatiere("Plastique");
+			$entitySouris->setDesc("2700 configurations physiques possibles pour parfaitement ajuster la RAT Pro x3 à votre main et style de jeu
+    Capteur pixart PMW3389 (16000dpi max), taux de rapport USB (Polling rate) très élevé: jusqu'à 3000 Hz
+    Molette révolutionnaire utilisant la technologie optique et la capacité d’axe analogique
+    En plus d'ajuster leur longueur et leur hauteur, vous pouvez faire pivoter vos repose-mains - de 0 à 15 degrés - Le long de l'axe principal.
+    Fourni avec 1 Module PMW3389, 2x repose main, 2x repose petit doigt, 1 repose pouce, 1 set de patins additionnel, 3 molettes, 1x outil d'ajustement, 1x brosse de nettoyage et 1x sac de rangement");
+			$entitySouris->setImage("https://m.media-amazon.com/images/I/81iGVoUbGpL._AC_SL1500_.jpg");
+			$manager->persist($entitySouris);
+
+
+			$entityRat = new Rat();
+			$entityRat->setId(65256932);
+			$entityRat->setCategorie(["Rat"]);
+			$entityRat->setTitre("Logan");
+			$entityRat->setPrix("0.35");
+			$entityRat->setDisponibilite(1);
+			$entityRat->setDesc("Rencontrez Logan, le 'rat' le plus astucieux et économe de tous les temps ! Toujours à l'affût des meilleures affaires, Logan transforme chaque centime en une opportunité de grandir. Son flair exceptionnel pour dénicher les bons plans et sa capacité à éviter les dépenses superflues font de lui le gardien idéal de votre budget. Avec son sourire frugal et son instinct infaillible pour les économies, Logan vous montrera comment profiter de la vie sans jamais compromettre vos finances. Que vous soyez un amateur de défis financiers ou simplement désireux de mieux gérer vos ressources, Logan est le partenaire parfait pour vous accompagner vers un avenir plus prospère. Ne manquez pas cette chance unique d'adopter un véritable expert de l'épargne !");
+			$entityRat->setImage("https://drive.google.com/file/d/1DiL7QklzrTmVgtLJEty09Bfkc6wNAxcB/view");
+			$entityRat->setSolde(1000);
+			$entityRat->setTaille("120cm");
+			$entityRat->setAge(20);
+			$manager->persist($entityRat);
 
 			$manager->flush();
 		}

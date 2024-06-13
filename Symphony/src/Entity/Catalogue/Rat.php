@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Rat extends Article
 {
-    #[ORM\Column(length: 255,name: 'solde')]
+    #[ORM\Column(length: 255, name: 'solde')]
     private ?int $solde = null;
 
     #[ORM\Column(length: 255, name: 'taille')]

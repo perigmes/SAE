@@ -19,7 +19,7 @@ class Canard extends Article
     #[ORM\Column(length: 255, name: 'Recyclable')]
     private ?bool $recyclable = null;
     
-#[ORM\Column(length: 255, name: 'matiere')]
+    #[ORM\Column(length: 255, name: 'matiere')]
     private ?string $matiere = null;
 
     #[ORM\Column(length: 255, name: 'fabrication')]
