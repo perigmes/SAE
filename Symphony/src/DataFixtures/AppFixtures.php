@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
 
 			$entityCanard = new Canard();
 			$entityCanard->setId(55677821);
-			$entityCanard->setCategorie("Canard");
+			$entityCanard->setCategorie(["Canard"]);
 			$entityCanard->setTitre("Le canard en or");
 			$entityCanard->setPrix("8.95");
 			$entityCanard->setDisponibilite(100);
@@ -48,7 +48,7 @@ Tous nos canards sont homologués CE (Communauté Européenne), conformément à
 
 			$entityCanard = new Canard();
 			$entityCanard->setId(56299459);
-			$entityCanard->setCategorie("Canard");
+			$entityCanard->setCategorie(["Canard"]);
 			$entityCanard->setTitre("Le canard Jaune classique");
 			$entityCanard->setPrix("12.00");
 			$entityCanard->setDesc("Le canard jaune en plastique pour le bain est devenu un jouet populaire pour les enfants depuis les années 1950. L’origine exacte du canard jaune en plastique pour le bain n’est pas clairement établie, mais il est généralement considéré comme ayant été inventé aux États-Unis.

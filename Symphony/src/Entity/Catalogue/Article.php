@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: "article_type", type: "string")]
-#[ORM\DiscriminatorMap(["article" => "Article", "livre" => "Livre", "musique" => "Musique", "canard"=>"Canard"])]
+#[ORM\DiscriminatorMap(["article" => "Article", "livre" => "Livre", "musique" => "Musique", "canard"=>"Canard", "rat"=>"Rat","souris"=>"Souris"])]
 class Article
 {
     #[ORM\Id]
@@ -50,7 +50,7 @@ class Article
         return $this->categories;
     }
 	
-    public function setCategorie(int $categories): static
+    public function setCategorie(array $categories): static
     {
         $this->categories = $categories;
 
