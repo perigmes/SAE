@@ -114,10 +114,10 @@ Tous nos canards sont homologués CE (Communauté Européenne), conformément à
 			$entityRat->setTitre("Logan");
 			$entityRat->setPrix("0.35");
 			$entityRat->setDisponibilite(1);
-			$entityRat->setDesc("Rencontrez Logan, le 'rat' le plus astucieux et économe de tous les temps ! Toujours à l'affût des meilleures affaires, Logan transforme chaque centime en une opportunité de grandir. Son flair exceptionnel pour dénicher les bons plans et sa capacité à éviter les dépenses superflues font de lui le gardien idéal de votre budget. Avec son sourire frugal et son instinct infaillible pour les économies, Logan vous montrera comment profiter de la vie sans jamais compromettre vos finances. Que vous soyez un amateur de défis financiers ou simplement désireux de mieux gérer vos ressources, Logan est le partenaire parfait pour vous accompagner vers un avenir plus prospère. Ne manquez pas cette chance unique d'adopter un véritable expert de l'épargne !");
-			$entityRat->setImage("https://drive.google.com/file/d/1DiL7QklzrTmVgtLJEty09Bfkc6wNAxcB/view");
+			$entityRat->setDesc("Rencontrez Logan, le rat le plus astucieux et économe de tous les temps ! Toujours à l'affût des meilleures affaires, Logan transforme chaque centime en une opportunité de grandir. Son flair exceptionnel pour dénicher les bons plans et sa capacité à éviter les dépenses superflues font de lui le gardien idéal de votre budget. Avec son sourire frugal et son instinct infaillible pour les économies, Logan vous montrera comment profiter de la vie sans jamais compromettre vos finances. Que vous soyez un amateur de défis financiers ou simplement désireux de mieux gérer vos ressources, Logan est le partenaire parfait pour vous accompagner vers un avenir plus prospère. Ne manquez pas cette chance unique d'adopter un véritable expert de l'épargne !");
+			$entityRat->setImage("https://media.licdn.com/dms/image/D4E03AQHlxT4FwcDzrQ/profile-displayphoto-shrink_800_800/0/1678958194743?e=2147483647&v=beta&t=K-OETZAsIZlP9tF0gfIdNtJLTHnIhVfL8CUOPngC_rE");
 			$entityRat->setSolde(1000);
-			$entityRat->setTaille("120cm");
+			$entityRat->setTaille(120);
 			$entityRat->setAge(20);
 			$manager->persist($entityRat);
 

@@ -11,7 +11,7 @@ class Rat extends Article
     private ?int $solde = null;
 
     #[ORM\Column(length: 255, name: 'taille')]
-    private ?string $taille = null;
+    private ?int $taille = null;
 
     #[ORM\Column(length: 255, name: 'age')]
     private ?int $age = null;
@@ -28,12 +28,12 @@ class Rat extends Article
         return $this;
     }
 
-    public function getTaille(): ?string
+    public function getTaille(): ?int
     {
         return $this->taille;
     }
 
-    public function setTaille(string $taille): static
+    public function setTaille(int $taille): static
     {
         $this->taille = $taille;
 
