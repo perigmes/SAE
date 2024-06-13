@@ -2,12 +2,13 @@ import { makeAutoObservable } from "mobx";
 
 
 class Product {
-    _id; _title; _price; _group; _photo;_categories;_description; 
-    constructor({ id, titre, prix, disponibilite, image,categories,description }) {
+    _id; _title; _price; _group; _photo;_categories;_description;_vendu;
+    constructor({ id, titre, prix, disponibilite, vendu, image, categories, description }) {
         this._id = id;
         this._title = titre;
         this._price = prix;
         this._disponibilite = disponibilite;
+        this._vendu = vendu;
         this._photo = image;
         this._categories = categories;
         this._description = description;
@@ -35,18 +36,16 @@ class Product {
     get description() {
         return this._description;
     }
-
-    
+    get vendu() {
+        return this._vendu;
+    }
 
     set title(value) {
         this._name = value;
     }
-
     set price(value) {
         this._prix = value;
     }
-
-
     set disponibilite(value) {
         this._disponibilite = value;
     }
@@ -58,6 +57,9 @@ class Product {
     }
     set description(value) {
         this._description = value;
+    }
+    set vendu(value) {
+        this._vendu = value;
     }
 
 
