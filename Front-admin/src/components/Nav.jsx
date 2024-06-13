@@ -1,33 +1,54 @@
 import React from "react";
+import { useProductStore } from "../stores";
 import { useLocation, NavLink } from "react-router-dom";
 function Nav() {
+  const userStore = useProductStore();
+
   return (
-    <nav className="flex   text-2xl md:text-3xl lg:text-4xl">
-      <ul className="flex  flex-col sm:flex-row gap-x-4">
-        <NavLink
+    <nav className="lx un ys">
+
+      <ul className="lx un ys aaw">
+        <li><NavLink
           className={({ isActive }) => [
             isActive ? "active" : "text-neutral-950",
           ]}
           to={"/"}
         >
-          Acceuil
+          Dashboard
         </NavLink>
+        </li>
+        <li>
         <NavLink
           className={({ isActive }) => [
             isActive ? "active" : "text-neutral-950",
           ]}
-          to={"/groups"}
+          to={"/profile"}
         >
-          Groupes
+         { userStore.name}
         </NavLink>
+        <span>{userStore.role}</span>
+        </li>
+       
+        <li>
         <NavLink
           className={({ isActive }) => [
             isActive ? "active" : "text-neutral-950",
           ]}
           to={"/products"}
         >
-          Produits
+          Voir les produits
         </NavLink>
+        </li>
+        <li>
+        <NavLink
+          className={({ isActive }) => [
+            isActive ? "active" : "text-neutral-950",
+          ]}
+          to={"/users"}
+        >
+          Gestion des admins
+        </NavLink>
+        </li>
       </ul>
     </nav>
   );

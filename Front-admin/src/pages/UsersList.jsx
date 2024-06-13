@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import UserResume from "../components/UserResume";
 import SearchBar from "../components/SearchBar";
-import { useUserStore } from "../stores";
+import { useProductStore, useUserStore } from "../stores";
 
 function UsersList() {
-  let UserStore = useUserStore();
+  let userStore = useProductStore();
 
   let { role } = useParams();
   let [selectedRole, setSelectedRole] = useState(

@@ -5,10 +5,10 @@ import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { GlobalContext } from "../App";
 import { observer } from "mobx-react";
-import { useUserStore } from "../stores";
+import { useProductStore } from "../stores";
 
 function UserUpdate() {
-  const  userStore  = useUserStore();
+  const  userStore  = useProductStore();
   const navigate = useNavigate();
   let { id } = useParams();
   let [user, setUser] = useState(userStore.getUserById(id));

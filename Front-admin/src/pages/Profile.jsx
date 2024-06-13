@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useProductStore } from "../stores";
 
-function ProductUpdate() {
+function UserUpdate() {
   const productStore = useProductStore();
   const navigate = useNavigate();
   let { id } = useParams();
@@ -118,4 +118,4 @@ function ProductUpdate() {
     </>
   );
 }
-export default observer(ProductUpdate);
+export default observer(UserUpdate);

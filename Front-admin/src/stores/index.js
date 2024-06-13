@@ -1,12 +1,15 @@
 import { createContext } from "react";
 import ProductsStore from "./ProductsStore"
 import { useContext } from "react";
-
+import UserStore from "./UserStore"
 
 const GlobalContext = createContext();
 const stores = {
-    productStore: new ProductsStore()
+    productStore: new ProductsStore(),
+    userStore : new UserStore()
+
 }
+
 export const StoreProvider = ({ children }) => (
     <GlobalContext.Provider value={stores}>
         {children}

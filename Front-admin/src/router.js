@@ -4,7 +4,9 @@ import Groups from "./pages/Groups";
 import ProductsList from "./pages/ProductsList";
 import Page404 from "./pages/Page404";
 import App from "./App";
+import UserUpdate from "./pages/UserUpdate";
 import ProductUpdate from "./pages/ProductUpdate";
+import UsersList from "./pages/UsersList";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +16,14 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "/profile",
+                element: <UserUpdate />
+            },
+            {
+                path: "/users",
+                element: <UsersList />
             }, {
                 path: "/groups",
                 element: <Groups />

@@ -8,9 +8,17 @@ function App() {
   let productStore = useProductStore();
   return (
       <>
+      <div className="md cpy cqf crm cut cwo cyy">
+        <div className="lx uu ys aau adk afl afv aln ark">
         <Nav />
-        <main className="max-w-[80rem] m-auto p-1">
-          { productStore.loading ?  <p>En cours de chargement</p> : <Outlet />}
+        </div>
+        </div>
+        <main className="den">
+          <div className="dnc">
+          <div className="ari arr cex ddc ddo">
+
+          { productStore.loading ?  <p>En cours de chargement</p> : <Outlet />}</div>        </div>
+
         </main>
       </>
   );

@@ -24,7 +24,7 @@ class Product {
         return this._price;
     }
     get disponibilite() {
-        return this.disponibilite;
+        return this._disponibilite;
     }
     get photo() {
         return this._photo;
@@ -39,25 +39,25 @@ class Product {
     
 
     set title(value) {
-        this.name = value;
+        this._name = value;
     }
 
     set price(value) {
-        this.prix = value;
+        this._prix = value;
     }
 
 
     set disponibilite(value) {
-        this.disponibilite = value;
+        this._disponibilite = value;
     }
     set photo(value) {
-        this.photo = value;
+        this._photo = value;
     }
     set categories(value) {
-        this.categories = value;
+        this._categories = value;
     }
     set description(value) {
-        this.description = value;
+        this._description = value;
     }
 
 

@@ -2,12 +2,12 @@ import { makeAutoObservable } from "mobx";
 
 
 class User {
-    _id; _mail; _mdp; _nom; _pp; _role
-    constructor({ id, mail, mdp, nom, pp, role }) {
+    _id; _mail; _mdp; _name; _pp; _role
+    constructor({ id, mail, mdp, name, pp, role }) {
         this._id = id;
         this._mail = mail;
         this._mdp = mdp;
-        this._nom = nom;
+        this.name = name;
         this._pp = pp;
         this._role = role;
         makeAutoObservable(this);
@@ -22,8 +22,8 @@ class User {
     get mdp() {
         return this._mdp;
     }
-    get nom() {
-        return this._nom;
+    get name() {
+        return this._name;
     }
     get pp() {
         return this._pp;
@@ -37,8 +37,8 @@ class User {
     set mdp(value) {
         this._mdp = value;
     }
-    set nom(value) {
-        this._nom = value;
+    set name(value) {
+        this._name = value;
     }
     set role(value) {
         this._role = value;
