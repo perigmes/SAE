@@ -26,6 +26,9 @@ class Article
 
     #[ORM\Column(name: 'disponibilite')]
     private ?int $disponibilite = null;
+
+    #[ORM\Column(name: 'vendu')]
+    private ?int $vendu = null;
 	
     #[ORM\Column(length: 255, name: 'image')]
     private ?string $image = null;
@@ -72,7 +75,7 @@ class Article
     {
         return $this->description;
     }
-public function setDesc(string $description): static
+    public function setDesc(string $description): static
     {
         $this->description = $description;
 
@@ -98,6 +101,18 @@ public function setDesc(string $description): static
     public function setDisponibilite(int $disponibilite): static
     {
         $this->disponibilite = $disponibilite;
+
+        return $this;
+    }
+
+    public function getVendu(): ?int
+    {
+        return $this->vendu;
+    }
+
+    public function setVendu(int $vendu): static
+    {
+        $this->vendu = $vendu;
 
         return $this;
     }
