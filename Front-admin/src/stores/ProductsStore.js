@@ -46,12 +46,12 @@ class ProductsStore {
     }
 
     get groups() {
-        const groups = new Set(this._products.map(product => product.group))
+        const groups =  new Set(this._products.flatMap(product => product.categories));
         return [...groups].sort();
     }
 
     getProductByGroup(categorie) {
-        const productFromGroup = this._products.filter(product => product.group === categorie);
+        const productFromGroup = this._products.filter(product => product.includes(categorie) );
         return productFromGroup
     }
 
