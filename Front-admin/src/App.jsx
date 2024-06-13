@@ -8,11 +8,7 @@ function App() {
   let productStore = useProductStore();
   return (
       <>
-      <div className="md cpy cqf crm cut cwo cyy">
-        <div className="lx uu ys aau adk afl afv aln ark">
         <Nav />
-        </div>
-        </div>
         <main className="den">
           <div className="dnc">
           <div className="ari arr cex ddc ddo">

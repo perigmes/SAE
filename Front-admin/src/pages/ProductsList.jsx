@@ -33,11 +33,11 @@ function ProductsList() {
       </h1>
       <SearchBar nbCarMin={3} onChange={handleChange}></SearchBar>
 
-      <ul className="p-4 grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 justify-content-center gap-x-4 gap-y-8">
+      <ul className="mb yh zs cao cmo cyo">
         {!search
           ? selectedGroup.map((product) => {
               return (
-                <li key={product.id}>
+                <li key={product.id} className="eq lx ys acd ach adu aln avl bbi">
                   <ProductResume product={product}></ProductResume>
                 </li>
               );
