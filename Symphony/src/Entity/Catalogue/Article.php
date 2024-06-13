@@ -15,6 +15,9 @@ class Article
     #[ORM\Column]
     private ?string $id = null;
 
+    #[ORM\Column(name: 'categories')]
+    private ?array $categories = null;
+
     #[ORM\Column(length: 255, name: 'titre')]
     private ?string $titre = null;
 
@@ -38,6 +41,18 @@ class Article
     public function setId(int $id): static
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?int
+    {
+        return $this->categories;
+    }
+	
+    public function setCategorie(int $categories): static
+    {
+        $this->categories = $categories;
 
         return $this;
     }
