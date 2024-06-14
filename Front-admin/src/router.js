@@ -27,8 +27,8 @@ export const router = createBrowserRouter([
                 path: "/groups",
                 element: <Groups />
             }, {
-                path: "/products/groups?/:group?",
-                element: <Products />
+                path: "/products/categories?/:categorie?",
+                element: <ProductsList />
             },
             {
                 path: "/products",

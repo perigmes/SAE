@@ -5,12 +5,14 @@ import ProductResume from "../components/ProductResume";
 import SearchBar from "../components/SearchBar";
 import { useProductStore } from "../stores";
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function ProductsList({selectProduct}) {
-  let productStore = useProductStore();
-  let { group } = useParams();
+  const productContext = useProductStore();
+  let { categorie } = useParams();
+  const { categories }= productContext;
   let [selectedGroup, setSelectedGroup] = useState(
-    group ? productStore.getProductByGroup(group) : productStore.products
+    categorie ? productContext.getProductByGroup(categorie) : productContext.products
   );
   
   let [search, setSearch] = useState("");
@@ -21,17 +23,25 @@ function ProductsList({selectProduct}) {
   };
   useEffect(() => {
     setSelectedGroup(
-      group ? productStore.getProductByGroup(group) : productStore.products
+      categorie ? productContext.getProductByGroup(categorie) : productContext.products
     );
-  }, [group, productStore, productStore.products]);
+  }, [categorie, productContext, productContext.products]);
 
   return (
     <>
       <h1>
         Liste Produits
-        {group && ` ${group}`}
       </h1>
       <SearchBar nbCarMin={3} onChange={handleChange}></SearchBar>
+      <div>
+      {
+        categories.map(categorie => (
+          <div className="p-4 sm:p-8 bg-slate-300 rounded-xl grid justify-items-center gap-y-2" key={categorie}>
+            <span><Link to={`/products/categories/${categorie}`}>{categorie}</Link></span>
+          </div>
+          ))
+      }
+      </div>
 
       <ul className="mb yh zs cao cmo cyo">
         {!search
@@ -48,7 +58,7 @@ function ProductsList({selectProduct}) {
               )
               .map((product) => {
                 return (
-                  <li key={product.id} onClick={()=>{
+                  <li key={product.id} className="eq lx ys acd ach adu aln avl bbi" onClick={()=>{
                   selectProduct(product.id)}}>
                     <ProductResume product={product}></ProductResume>
                   </li>

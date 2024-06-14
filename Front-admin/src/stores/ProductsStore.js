@@ -45,19 +45,20 @@ class ProductsStore {
         return this._loading;
     }
 
-    get groups() {
-        const groups =  new Set(this._products.flatMap(product => product.categories));
-        return [...groups].sort();
+    get categories() {
+        const categories =  new Set(this._products.flatMap(product => product.categories));
+        return [...categories].sort();
     }
 
     getProductByGroup(categorie) {
+        console.log(categorie);
         const productFromGroup = this._products.filter(product => product.includes(categorie) );
         return productFromGroup
     }
 
     getProductById(id) {
         console.log(this._products);
-       console.log( this._products.find((product) => {
+        console.log( this._products.find((product) => {
         console.log("Produit ID:", product.id, "Type:", typeof product.id);
         console.log("Cherché ID:", id, "Type:", typeof id);
         return product.id === id}))
