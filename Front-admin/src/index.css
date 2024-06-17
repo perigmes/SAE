@@ -102,6 +102,52 @@ hr {
 }
 
 /*
+LES OPTIONS DU MENU DES PRODUITS
+*/
+.bigBox {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.boxLessBig {
+  max-width: 768px;
+}
+
+.boxLittle {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.menuButton {
+  cursor: pointer;
+  border-radius: 0.5rem;
+  background-color: rgba(255 255 255 5%);
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-right: auto;
+  color: rgb(0 0 0);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.menuButton:focus {
+  outline: none;
+}
+
+.menuButton[data-focus] {
+  outline: 1px solid;
+  outline-color: #fff;
+}
+
+.changeColor {
+  background-color: rgba(255, 0, 0, 1);
+}
+
+.lIcone:checked {
+  opacity: 1;
+}
+
+/*
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
@@ -185,6 +231,11 @@ sub {
 
 sup {
   top: -0.5em;
+}
+
+.option {
+  width: 100%;
+  justify-content: center;
 }
 
 /*
@@ -413,6 +464,10 @@ embed,
 object {
   display: block; /* 1 */
   vertical-align: middle; /* 2 */
+}
+
+svg {
+  height: 1rem;
 }
 
 /*
@@ -3834,6 +3889,9 @@ body {
 }
 .ys {
   flex-direction: column;
+}
+.ysr {
+  flex-direction: row;
 }
 .yt {
   flex-direction: column-reverse;

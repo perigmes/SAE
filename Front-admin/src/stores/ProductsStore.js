@@ -50,10 +50,8 @@ class ProductsStore {
         return [...categories].sort();
     }
 
-    getProductByGroup(categorie) {
-        console.log(categorie);
-        const productFromGroup = this._products.filter(product => product.includes(categorie) );
-        return productFromGroup
+    getProductByGroup(categoriez) {
+        return this._products.filter(product => product.categories.includes(categoriez));
     }
 
     getProductById(id) {

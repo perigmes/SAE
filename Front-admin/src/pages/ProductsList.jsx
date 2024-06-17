@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { observer } from "mobx-react";
+import { Radio, RadioGroup } from '@headlessui/react'
 import ProductResume from "../components/ProductResume";
 import SearchBar from "../components/SearchBar";
 import { useProductStore } from "../stores";
@@ -14,8 +15,14 @@ function ProductsList({selectProduct}) {
   let [selectedGroup, setSelectedGroup] = useState(
     categorie ? productContext.getProductByGroup(categorie) : productContext.products
   );
+  const options = [
+    { name: 'Canard' },
+    { name: 'Souris' },
+    { name: 'Rat' },
+  ]
   
   let [search, setSearch] = useState("");
+  const [selected, setSelected] = useState(options[0])
 
   let handleChange = (event) => {
     event.preventDefault();
@@ -32,15 +39,30 @@ function ProductsList({selectProduct}) {
       <h1>
         Liste Produits
       </h1>
-      <SearchBar nbCarMin={3} onChange={handleChange}></SearchBar>
-      <div>
-      {
-        categories.map(categorie => (
-          <div className="p-4 sm:p-8 bg-slate-300 rounded-xl grid justify-items-center gap-y-2" key={categorie}>
-            <span><Link to={`/products/categories/${categorie}`}>{categorie}</Link></span>
-          </div>
-          ))
-      }
+      <SearchBar nbCarMin={2} onChange={handleChange}></SearchBar>
+      <div className="bigBox">
+        <div className="gx a ask boxLessBig">
+          <RadioGroup by="name" value={selected} onChange={setSelected} aria-label="Server size" className="lb zq ysr lx">
+            {options.map((plan) => (
+              <Link to={`/products/categories/${plan.name}`}>
+                <Radio
+                  key={plan.name}
+                  value={plan}
+                  className="group ab lx a acs ash transition menuButton"
+                >
+
+                    {({checked}) => (
+                      <div className={`lx option arj arv adu ${checked?"changeColor":""}`}>
+                        <div className="avl boxLittle">
+                        <span key={categorie}>{plan.name}</span>
+                        </div>
+                      </div>
+                    )}
+                </Radio>
+              </Link>
+            ))}
+          </RadioGroup>
+        </div>
       </div>
 
       <ul className="mb yh zs cao cmo cyo">

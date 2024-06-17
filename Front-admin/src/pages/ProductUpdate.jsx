@@ -74,9 +74,9 @@ function ProductUpdate({productSelected,validate}) {
               required
               multiple={true}
             >
-              {productStore.groups.map((group) => (
-                <option key={group} value={group}>
-                  {group}
+              {productStore.categories.map((categorie) => (
+                <option key={categorie} value={categorie}>
+                  {categorie}
                 </option>
               ))}
             </select>

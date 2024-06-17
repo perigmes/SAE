@@ -8,7 +8,7 @@ function Products() {
     return (
         <>
           <div className="dnc">
-          <div className="ari arr cex ddc ddo">
+          <div className="ari arr cex ddc adl ddo">
             <ProductsList selectProduct={(value)=>{setProductSelect(value)}}/>
             </div>
             </div>
