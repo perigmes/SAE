@@ -6,9 +6,7 @@
 	],                                                  
 	"settings": {	                                    
 	    "intelephense.environment.includePaths": [	    
-	      	"C:\\Users\\isare\\symfony\\vendor",
-			  "C:\\Users\\Gabin\\symfony\\vendor",
-
+	      	"C:\\Users\\isare\\symfony\\vendor"       
 	    ],                                       	    
 	    "php.suggest.basic": false,                     
 	}            	                                    

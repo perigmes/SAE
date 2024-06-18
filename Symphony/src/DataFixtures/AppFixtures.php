@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
 
 			$entityCanard = new Canard();
 			$entityCanard->setId(55677821);
-			$entityCanard->setCategorie(["Canard"]);
+			$entityCanard->setCategorie("Canard");
 			$entityCanard->setTitre("Le canard en or");
 			$entityCanard->setPrix("8.95");
 			$entityCanard->setDisponibilite(100);
@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
 
 			$entityCanard = new Canard();
 			$entityCanard->setId(56299459);
-			$entityCanard->setCategorie(["Canard"]);
+			$entityCanard->setCategorie("Canard");
 			$entityCanard->setTitre("Le canard Jaune");
 			$entityCanard->setPrix("12.00");
 			$entityCanard->setDesc("Le canard jaune en plastique pour le bain est devenu un jouet populaire pour les enfants depuis les années 1950. L’origine exacte du canard jaune en plastique pour le bain n’est pas clairement établie, mais il est généralement considéré comme ayant été inventé aux États-Unis.
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
 
 			$entitySouris = new Souris();
 			$entitySouris->setId(358614889);
-			$entitySouris->setCategorie(["Souris"]);
+			$entitySouris->setCategorie("Souris");
 			$entitySouris->setTitre("DeathAdder Essential");
 			$entitySouris->setPrix("25.25");
 			$entitySouris->setDisponibilite(23);
@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
 
 			$entitySouris = new Souris();
 			$entitySouris->setId(85456987);
-			$entitySouris->setCategorie(["Souris"]);
+			$entitySouris->setCategorie("Souris");
 			$entitySouris->setTitre("Rat X3");
 			$entitySouris->setPrix("159.99");
 			$entitySouris->setDisponibilite(2);
@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
 
 			$entityRat = new Rat();
 			$entityRat->setId(65256932);
-			$entityRat->setCategorie(["Rat"]);
+			$entityRat->setCategorie("Rat");
 			$entityRat->setTitre("Logan");
 			$entityRat->setPrix("0.35");
 			$entityRat->setDisponibilite(1);
@@ -120,7 +120,7 @@ class AppFixtures extends Fixture
 
 			$entityRat = new Rat();
 			$entityRat->setId(58969248);
-			$entityRat->setCategorie(["Rat"]);
+			$entityRat->setCategorie("Rat");
 			$entityRat->setTitre("Charlie");
 			$entityRat->setPrix("0.15");
 			$entityRat->setDisponibilite(1);

@@ -5,6 +5,8 @@ import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useProductStore } from "../stores";
+import { Fieldset,Field,Select,Button } from "@headlessui/react";
+import clsx from 'clsx'
 
 function ProductUpdate({productSelected,validate}) {
   const productStore = useProductStore();
@@ -39,10 +41,12 @@ function ProductUpdate({productSelected,validate}) {
           <form
           key={product.id}
             action="#"
-            className="grid sm:grid-cols-2 gap-1 sm:gap-4 mx-auto mt-8 w-fit"
+            className="cur sm:grid-cols-2 gap-1 sm:gap-4 mx-auto mt-8 w-fit"
             onSubmit={handleSubmit}
           >
-            <label htmlFor="title">Titre</label>
+            <Fieldset>
+              <Field>
+            <label htmlFor="title" className="block dfu awe dfx">Titre</label>
 
             <input
               type="text"
@@ -51,10 +55,13 @@ function ProductUpdate({productSelected,validate}) {
               required
               minLength={2}
               maxLength={25}
+              className="cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp"
               title="Le titre doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
               defaultValue={product.title}
             />
-            <label htmlFor="description">Description</label>
+            </Field>
+            <Field>
+            <label htmlFor="description" className="block dfu awe dfx">Description</label>
 
             <textarea
               type="text"
@@ -62,25 +69,31 @@ function ProductUpdate({productSelected,validate}) {
               id="description"
               required
               minLength={2}
+              className="cur rfl dbc afb arq atq aub axv cio bbx bcf bya placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp"
               title="La description doit comporter entre 2 et 25 caractères alphabétiques non accentués, espaces, tirets ou apostrophes"
               defaultValue={product.description}
             />
+            </Field>
+            <Field>
             <label htmlFor="categories">catégorie</label>
 
-            <select
+            <Select
               name="categories"
               id="categories"
-              defaultValue={product.categories}
+              defaultValue={product.categories[0]}
               required
-              multiple={true}
+              className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+  
             >
               {productStore.categories.map((categorie) => (
                 <option key={categorie} value={categorie}>
                   {categorie}
                 </option>
               ))}
-            </select>
-            <label htmlFor="price">prix</label>
+            </Select>
+            </Field>
+            <Field>
+            <label htmlFor="price" className="block dfu awe dfx">prix</label>
 
             <input
               type="text"
@@ -89,27 +102,31 @@ function ProductUpdate({productSelected,validate}) {
               required
               minLength={2}
               maxLength={25}
+              className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
               title="Le prix doit être soit le format 00.00"
               defaultValue={product.price}
             />
-            <div className="col-start-2 flex gap-4">
-              <button
-                className="btn"
+            </Field>
+             </Fieldset>
+            <div className="lx caw zn zg">
+  <Button className="text-blue cev cfg dbb bg-white"
                 type="button"
-                onClick={() => navigate(-1)}
+                onClick={() =>validate() }
               >
 
-                Annuler <FontAwesomeIcon icon={faRotateLeft} />
-              </button>
-              <button className="btn" type="submit">
-                Sauvegarder <FontAwesomeIcon icon={faPaperPlane} />
-              </button>
+                Annuler
+              </Button>
+              <Button className="text-white border-blue cev cfg dbb bg-blue py-1.5 px-3 text-sm/6 font-semibold shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white"
+type="submit">
+                Sauvegarder 
+              </Button>
             </div>
             {error && (
               <p className="text-red-600 bg-red-100 text-center col-span-2">
                 {error}
               </p>
             )}
+           
           </form>
         </main>
       ) : (

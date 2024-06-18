@@ -7,8 +7,9 @@ import SearchBar from "../components/SearchBar";
 import { useProductStore } from "../stores";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Button } from "@headlessui/react";
 
-function ProductsList({selectProduct}) {
+function ProductsList({selectProduct,setAddTrue}) {
   const productContext = useProductStore();
   let { categorie } = useParams();
   const { categories }= productContext;
@@ -40,6 +41,8 @@ function ProductsList({selectProduct}) {
         Liste Produits
       </h1>
       <SearchBar nbCarMin={2} onChange={handleChange}></SearchBar>
+      <Button onClick={()=>setAddTrue()}>Ajouter un produit</Button>
+
       <div className="bigBox">
         <div className="gx a ask boxLessBig">
           <RadioGroup by="name" value={selected} onChange={setSelected} aria-label="Server size" className="lb zq ysr lx">
@@ -69,7 +72,7 @@ function ProductsList({selectProduct}) {
         {!search
           ? selectedGroup.map((product) => {
               return (
-                <li key={product.id} className="eq lx ys acd ach adu aln avl bbi" onClick={()=>selectProduct(product.id)}>
+                <li key={product.id} className="eq lx ys acd xr ach adu aln avl bbi" onClick={()=>selectProduct(product.id)}>
                   <ProductResume product={product}></ProductResume>
                 </li>
               );

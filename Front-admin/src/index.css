@@ -3,6 +3,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@layer utilities{
+
+}
 @layer base {
     body {
         @apply min-h-full;
@@ -24,6 +27,7 @@
     select,
     textarea {
         @apply w-full border-2 border-gray-300 rounded focus:border-blue-500 p-1;
+        
     }
     a {
         @apply text-blue-500 hover:underline;
@@ -35,6 +39,7 @@
         @apply shadow-lg rounded bg-gradient-to-b from-sky-400 to-sky-500 text-base text-white px-2 sm:px-4  py-2 w-max inline-flex gap-x-2 items-center;
     }
 }
+
 /*
 ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
 *//*
@@ -413,7 +418,7 @@ Prevent resizing textareas horizontally by default.
 */
 
 textarea {
-  resize: vertical;
+  resize: none;
 }
 
 /*
@@ -440,7 +445,9 @@ button,
 [role="button"] {
   cursor: pointer;
 }
-
+.border-blue {
+  border: #323484 solid 1px !important;
+}
 /*
 Make sure disabled buttons don't get the pointer cursor.
 */
@@ -3230,6 +3237,9 @@ body {
 .rg {
   width: 0.375rem;
 }
+.rfl{
+  width:100%
+}
 .rh {
   width: 50%;
 }
@@ -4842,8 +4852,11 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
-.ait {
-  background-color: rgb(55 65 81 / 0.1);
+.bg-blue {
+  background-color: #323484;
+}
+bg-white{
+  background-color: #DCDCEA;
 }
 .aiu {
   background-color: rgb(55 65 81 / 0.4);
@@ -6116,6 +6129,12 @@ body {
   --tw-text-opacity: 1;
   color: rgb(125 211 252 / var(--tw-text-opacity));
 }
+.text-white{
+  color :#DCDCEA;
+}
+.text-blue{
+  color:#323484
+}
 .axa {
   --tw-text-opacity: 1;
   color: rgb(191 219 254 / var(--tw-text-opacity));
@@ -6934,7 +6953,13 @@ body {
           mask-image: radial-gradient(closest-side,white,transparent);
 }
 @media (min-width: 640px) {
-
+  .awp {
+    line-height: 1.5rem;
+  }
+  .awa {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
   .bfd {
     --tw-aspect-h: 1;
   }
@@ -9694,8 +9719,8 @@ body {
     border-color: rgb(229 231 235 / var(--tw-border-opacity));
   }
 
-  .cdz {
-    border-color: rgb(17 24 39 / 0.05);
+  .border-blue {
+    border: #323484 solid 1px !important;
   }
 
   .cea {

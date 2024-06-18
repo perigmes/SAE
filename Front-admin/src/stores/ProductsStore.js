@@ -18,7 +18,8 @@ class ProductsStore {
         try {
             let products = await fetch(API_URL_PRODUITS).then((value) => value.json());
             runInAction(() => {
-                this.products = products.map((product) => new Product(product));
+                this.products = products.map((product) => product);
+                console.log(products);
                 this.products = this.products.sort((a, b) => a.name.localeCompare(b.name));
                 this._loading = false;
             });
@@ -46,7 +47,7 @@ class ProductsStore {
     }
 
     get categories() {
-        const categories =  new Set(this._products.flatMap(product => product.categories));
+        const categories =  new Set(this._products.flatMap(product => product.categorie));
         return [...categories].sort();
     }
 
@@ -92,9 +93,30 @@ class ProductsStore {
             }
         }
     }
+    async addProduct(data) {
+        console.log(data)
+            try {
+                const response = await fetch(`${API_URL_PRODUITS}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    runInAction(() => {
+                        Object.assign(data);
+                    });
+                    return { success: true, message: "Produit ajouté" };
+                } else {
+                    return { success: false, message: `Request failed with status ${response.status}` };
+                }
+            } catch (error) {
+                return { success: false, message: `${error}` };
+            }
+        }
+    }
 
 
 
-
-}
 export default ProductsStore;

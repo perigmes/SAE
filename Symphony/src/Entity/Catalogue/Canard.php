@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Canard extends Article
 {
     #[ORM\Column(length: 255,name: 'poids')]
-    private ?int $poids = null;
+    private ?float $poids = null;
 
     #[ORM\Column(length: 255, name: 'dimensions')]
     private ?array $dim = null;
@@ -16,7 +16,7 @@ class Canard extends Article
     #[ORM\Column(length: 255, name: 'normes')]
     private ?string $normes = null;
 
-    #[ORM\Column(length: 255, name: 'Recyclable')]
+    #[ORM\Column(length: 255, name: 'recyclable')]
     private ?bool $recyclable = null;
     
     #[ORM\Column(length: 255, name: 'matiere')]
@@ -25,12 +25,12 @@ class Canard extends Article
     #[ORM\Column(length: 255, name: 'fabrication')]
     private ?string $fabrication = null;
     
-    public function getPoids(): ?int
+    public function getPoids(): ?float
     {
         return $this->poids;
     }
 
-    public function setPoids(string $poids): static
+    public function setPoids(float $poids): static
     {
         $this->poids = $poids;
 
@@ -44,8 +44,12 @@ class Canard extends Article
 
     public function setDim(string $dim): static
     {
-        $this->dim = $dim;
-
+        $parts = explode('x', $dim);
+        $this->dim = [
+            intval($parts[0]),
+            intval($parts[1])
+        ];
+    
         return $this;
     }
 
@@ -54,7 +58,7 @@ class Canard extends Article
         return $this->normes;
     }
 
-    public function setNormes(int $normes): static
+    public function setNormes(string $normes): static
     {
         $this->normes = $normes;
 
@@ -77,7 +81,7 @@ class Canard extends Article
         return $this->matiere;
     }
 
-    public function setMatiere(bool $matiere):static
+    public function setMatiere(string $matiere):static
     {
         $this->matiere = $matiere;
 
@@ -88,7 +92,7 @@ class Canard extends Article
         return $this->fabrication;
     }
 
-    public function setFabrication(bool $fabrication):static
+    public function setFabrication(string $fabrication):static
     {
         $this->fabrication = $fabrication;
 

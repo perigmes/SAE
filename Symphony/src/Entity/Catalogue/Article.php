@@ -15,14 +15,14 @@ class Article
     #[ORM\Column]
     private ?string $id = null;
 
-    #[ORM\Column(name: 'categories')]
-    private ?array $categories = null;
+    #[ORM\Column(name: 'categorie')]
+    private ?string $categorie = null;
 
-    #[ORM\Column(length: 255, name: 'titre')]
-    private ?string $titre = null;
+    #[ORM\Column(length: 255, name: 'title')]
+    private ?string $title = null;
 
-    #[ORM\Column(name: 'prix')]
-    private ?float $prix = null;
+    #[ORM\Column(name: 'price')]
+    private ?float $price = null;
 
     #[ORM\Column(name: 'disponibilite')]
     private ?int $disponibilite = null;
@@ -50,24 +50,24 @@ class Article
 
     public function getCategorie(): ?int
     {
-        return $this->categories;
+        return $this->categorie;
     }
 	
-    public function setCategorie(array $categories): static
+    public function setCategorie(string $categorie): static
     {
-        $this->categories = $categories;
+        $this->categorie = $categorie;
 
         return $this;
     }
 
     public function getTitre(): ?string
     {
-        return $this->titre;
+        return $this->title;
     }
 
-    public function setTitre(string $titre): static
+    public function setTitre(string $title): static
     {
-        $this->titre = $titre;
+        $this->title = $title;
 
         return $this;
     }
@@ -83,12 +83,12 @@ class Article
     }
     public function getPrix(): ?float
     {
-        return $this->prix;
+        return $this->price;
     }
 
-    public function setPrix(float $prix): static
+    public function setPrix(float $price): static
     {
-        $this->prix = $prix;
+        $this->price = $price;
 
         return $this;
     }
