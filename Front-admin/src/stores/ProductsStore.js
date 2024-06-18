@@ -52,7 +52,7 @@ class ProductsStore {
     }
 
     getProductByGroup(categoriez) {
-        return this._products.filter(product => product.categories.includes(categoriez));
+        return this._products.filter(product => product.categorie.includes(categoriez));
     }
 
     getProductById(id) {

@@ -80,7 +80,7 @@ function ProductUpdate({productSelected,validate}) {
             <Select
               name="categories"
               id="categories"
-              defaultValue={product.categories[0]}
+              defaultValue={product.categorie}
               required
               className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
   

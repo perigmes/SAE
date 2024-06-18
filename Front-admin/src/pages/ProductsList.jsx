@@ -47,7 +47,7 @@ function ProductsList({selectProduct,setAddTrue}) {
         <div className="gx a ask boxLessBig">
           <RadioGroup by="name" value={selected} onChange={setSelected} aria-label="Server size" className="lb zq ysr lx">
             {options.map((plan) => (
-              <Link to={`/products/categories/${plan.name}`}>
+              <Link to={`/products/categorie/${plan.name}`}>
                 <Radio
                   key={plan.name}
                   value={plan}
