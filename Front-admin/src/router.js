@@ -5,7 +5,7 @@ import Products from "./pages/Products";
 import Page404 from "./pages/Page404";
 import App from "./App";
 import UserUpdate from "./pages/UserUpdate";
-import UsersList from "./pages/UsersList";
+import Users from "./pages/Users";
 
 export const router = createBrowserRouter([
     {
@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/users",
-                element: <UsersList />
+                element: <Users />
             }, {
                 path: "/groups",
                 element: <Groups />

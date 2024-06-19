@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Catalogue\Livre;
 use App\Entity\Catalogue\Musique;
 use App\Entity\Catalogue\Canard;
+use App\Entity\Users\Admin;
 
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -42,6 +43,7 @@ class ApiRestController extends AbstractController
 		$this->logger = $logger;
 	}
 
+	#==========> LES PRODUITS
 	#[Route('/wp-json/wc/v3/products', name: 'list-all-products', methods: ['GET'])]
 	public function listAllProducts(): Response
 	{
@@ -666,5 +668,109 @@ class ApiRestController extends AbstractController
 			Response::HTTP_BAD_REQUEST,
 			['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
 		);
+	}
+
+
+	#==========> LES ADMINS
+	
+	#[Route('/wp-json/wc/v3/users', name: 'list-all-users', methods: ['GET'])]
+	public function listAllUsers(): Response
+	{
+		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Users\User a");
+		$users = $query->getArrayResult();
+		$response = new Response();
+		$response->setStatusCode(Response::HTTP_OK); // 200 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+		$response->setContent(json_encode($users));
+		$response->headers->set('Content-Type', 'application/json');
+		$response->headers->set('Access-Control-Allow-Origin', '*');
+		return $response;
+	}
+
+	#[Route('/wp-json/wc/v3/users/{id}', name: 'retrieve-a-user', methods: ['GET'])]
+	public function retrieveAUser(string $id): Response
+	{
+		// http://127.0.0.1:8000/wp-json/wc/v3/users/B07KBT4ZRG
+		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Users\User a where a.id like :id");
+		$query->setParameter("id", $id);
+		$user = $query->getArrayResult();
+		if (count($user) !== 0) {
+			$response = new Response();
+			$response->setStatusCode(Response::HTTP_OK); // 200 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+			$response->setContent(json_encode($user));
+			$response->headers->set('Content-Type', 'application/json');
+			$response->headers->set('Access-Control-Allow-Origin', '*');
+			return $response;
+		} else {
+			$response = new Response();
+			$response->setStatusCode(Response::HTTP_NOT_FOUND); // 404 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+			$response->setContent(json_encode(array('message' => 'Resource not found: No user found for id ' . $id)));
+			$response->headers->set('Content-Type', 'application/json');
+			$response->headers->set('Access-Control-Allow-Origin', '*');
+			return $response;
+		}
+	}
+
+	#[Route('/wp-json/wc/v3/users', name: 'create-a-user', methods: ['POST'])]
+	public function createAUser(Request $request): Response
+	{
+		$user = json_decode($request->getContent(), true);
+		var_dump($user);
+		
+		$entity = new Admin();
+		$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
+		$formBuilder->add("pseudo", TextType::class);
+		$formBuilder->add("email", TextType::class);
+		$formBuilder->add("mdp", TextType::class);
+		$formBuilder->add("pp", TextType::class);
+		$formBuilder->add("ecriture", CheckboxType::class);
+		$formBuilder->add("lecture", CheckboxType::class);
+		// // Generate form
+		$form = $formBuilder->getForm();
+		$form->submit($user);
+		if ($form->isSubmitted()) {
+			try {
+				$entity = $form->getData();
+				$id = hexdec(uniqid()); // $id must be of type int
+				$entity->setId($id);
+				$entity->setVendu(0);
+				$this->entityManager->persist($entity);
+				$this->entityManager->flush();
+				$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Users\User a where a.id like :id");
+				$query->setParameter("id", $id);
+				$user = $query->getArrayResult();
+				$response = new Response();
+				$response->setStatusCode(Response::HTTP_CREATED); // 201 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+				$response->setContent(json_encode($user));
+				$response->headers->set('Content-Type', 'application/json');
+				$response->headers->set('Content-Location', '/wp-json/wc/v3/users/' . $id);
+				$response->headers->set('Access-Control-Allow-Origin', '*');
+				$response->headers->set('Access-Control-Allow-Headers', '*');
+				$response->headers->set('Access-Control-Expose-Headers', 'Content-Location');
+
+				return $response;
+			} catch (ConstraintViolationException $e) {
+				$errors = $form->getErrors();
+				$response = new Response();
+				$errorMessages = [];
+				foreach ($errors as $error) {
+					$errorMessages[] = $error->getMessage();
+				}
+				$response = new Response(json_encode(['message' => 'Invalid input', 'errors' => $errorMessages]), Response::HTTP_UNPROCESSABLE_ENTITY);
+				$response->headers->set('Content-Type', 'application/json');
+				$response->headers->set('Access-Control-Allow-Origin', '*');
+				$response->headers->set('Access-Control-Allow-Headers', '*');
+				return $response;
+			}
+		} else {
+			$errors = $form->getErrors();
+			$response = new Response();
+			$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+			$response->setContent(json_encode(array('message' => 'Invalid input', 'errors' => $errors->__toString())));
+			//$response->setContent(json_encode(array('message' => 'Invalid input'))) ;
+			$response->headers->set('Content-Type', 'application/json');
+			$response->headers->set('Access-Control-Allow-Origin', '*');
+			$response->headers->set('Access-Control-Allow-Headers', '*');
+			return $response;
+		}
 	}
 }

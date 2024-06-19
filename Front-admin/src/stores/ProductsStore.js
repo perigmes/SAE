@@ -19,7 +19,7 @@ class ProductsStore {
             runInAction(() => {
                 this.products = products.map((product) => product);
                 console.log(products);
-                this.products = this.products.sort((a, b) => a.name.localeCompare(b.name));
+                this.products = this.products.sort((a, b) => a.title.localeCompare(b.title));
                 this._loading = false;
             });
         } catch (error) {

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Catalogue\Article;
+use App\Entity\Users\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -16,6 +17,7 @@ use App\Entity\Catalogue\Piste;
 use App\Entity\Catalogue\Canard;
 use App\Entity\Catalogue\Rat;
 use App\Entity\Catalogue\Souris;
+use App\Entity\Users\Admin;
 
 use Psr\Log\LoggerInterface;
 
@@ -133,6 +135,34 @@ class AppFixtures extends Fixture
 			$manager->persist($entityRat);
 
 
+			$manager->flush();
+		}
+
+
+		if (count($manager->getRepository("App\Entity\Users\User")->findAll()) == 0) {
+
+			$entityAdmin = new Admin();
+			$entityAdmin->setId(68464684);
+			$entityAdmin->setPseudo("Bob");
+			$entityAdmin->setEmail("bob.lebricoleur@yep.com");
+			$entityAdmin->setMdp("martreau");
+			$entityAdmin->setRead(true);
+			$entityAdmin->setWrite(true);
+			$entityAdmin->setPp("https://risibank.fr/cache/medias/0/10/1091/109165/full.png");
+			$manager->persist($entityAdmin);
+
+
+			$entityAdmin = new Admin();
+			$entityAdmin->setId(68746341);
+			$entityAdmin->setPseudo("Dr La Peluche");
+			$entityAdmin->setEmail("dr.lapeluche@yep.com");
+			$entityAdmin->setMdp("BigJack");
+			$entityAdmin->setRead(true);
+			$entityAdmin->setWrite(true);
+			$entityAdmin->setPp("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS54H4GkNwUqS-EsFm33x-0we48dxcXmIxuEw&s");
+			$manager->persist($entityAdmin);
+
+			
 			$manager->flush();
 		}
 	}

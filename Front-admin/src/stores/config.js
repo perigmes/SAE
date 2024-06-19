@@ -1,1 +1,2 @@
 export const API_URL_PRODUITS= 'http://127.0.0.1:8000/wp-json/wc/v3/products';
+export const API_URL_USERS= 'http://127.0.0.1:8000/wp-json/wc/v3/users';

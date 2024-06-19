@@ -1,29 +1,36 @@
 <?php
 
-namespace App\Entity\Catalogue;
+namespace App\Entity\Users;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity]
 #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: "article_type", type: "string")]
-#[ORM\DiscriminatorMap(["article" => "Article", "livre" => "Livre", "musique" => "Musique", "user" => "User"])]
+#[ORM\DiscriminatorMap(["user" => "User", "admin" => "Admin"])]
 class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "NONE")]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Positive]
     #[ORM\Column(length: 255, name: 'pseudo')]
     private ?string $pseudo = null;
 
+    #[Assert\Positive]
     #[ORM\Column(name: 'email')]
     private ?string $email = null;
 
+    #[Assert\Positive]
     #[ORM\Column(name: 'mdp')]
     private ?string $mdp = null;
 	
+    #[Assert\Positive]
     #[ORM\Column(length: 255, name: 'pp')]
     private ?string $pp = null;
 
@@ -44,19 +51,19 @@ class User
         return $this->pseudo;
     }
 
-    public function setTitre(string $pseudo): static
+    public function setPseudo(string $pseudo): static
     {
         $this->pseudo = $pseudo;
 
         return $this;
     }
 
-    public function getEmail(): ?float
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setMail(string $email): static
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 
@@ -68,7 +75,7 @@ class User
         return $this->mdp;
     }
 
-    public function setMdp(int $mdp): static
+    public function setMdp(string $mdp): static
     {
         $this->mdp = $mdp;
 
@@ -80,7 +87,7 @@ class User
         return $this->pp;
     }
 
-    public function setImage(string $pp): static
+    public function setPp(string $pp): static
     {
         $this->pp = $pp;
 
