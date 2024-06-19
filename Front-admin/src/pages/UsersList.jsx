@@ -1,18 +1,20 @@
 import { useParams } from "react-router-dom";
-import Nav from "../components/Nav";
 import { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 import UserResume from "../components/UserResume";
 import SearchBar from "../components/SearchBar";
-import { useProductStore, useUserStore } from "../stores";
+import { useUserStore } from "../stores";
+import PropTypes from 'prop-types';
+import { Button } from "@headlessui/react";
 
-function UsersList() {
-  let userStore = useProductStore();
-
+function UsersList({ selectUser, setAddTrue }) {
+  const userContext = useUserStore();
+  console.log(userContext._users);
   let { role } = useParams();
   let [selectedRole, setSelectedRole] = useState(
-    role ? userStore.getUserByRole(role) : userStore.users
+    role ? userContext.getUserByRole(role) : userContext.users
   );
+  
   let [search, setSearch] = useState("");
 
   let handleChange = (event) => {
@@ -21,34 +23,34 @@ function UsersList() {
   };
   useEffect(() => {
     setSelectedRole(
-      role ? userStore.getUserByRole(role) : userStore.users
+      role ? userContext.getUserByRole(role) : userContext.users
     );
-  }, [role, userStore.users]);
+  }, [role, userContext, userContext.users]);
 
   return (
     <>
       <h1>
-        Liste des utilisateurs
-        {role && ` ${role}`}
+        Liste Utilisateurs
       </h1>
-      <SearchBar nbCarMin={3} onChange={handleChange}></SearchBar>
+      <SearchBar nbCarMin={2} onChange={handleChange}></SearchBar>
+      <Button onClick={()=>setAddTrue()}>Ajouter un administrateur</Button>
 
-      <ul className="p-4 grid sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 justify-content-center gap-x-4 gap-y-8">
+      <ul>
         {!search
-          ? selectedRole.map((user) => {
+          ? userContext.users.map((user) => {
               return (
-                <li key={user.id}>
+                <li key={user.id} onClick={()=>selectUser(user.id)}>
                   <UserResume user={user}></UserResume>
                 </li>
               );
             })
-          : selectedRole
+          : userContext.users
               .filter((user) =>
-                user.name.toLowerCase().includes(search.toLowerCase())
+                user.title.toLowerCase().includes(search.toLowerCase())
               )
               .map((user) => {
                 return (
-                  <li key={user.id}>
+                  <li key={user.id} onClick={()=>selectUser(user.id)}>
                     <UserResume user={user}></UserResume>
                   </li>
                 );
@@ -57,4 +59,15 @@ function UsersList() {
     </>
   );
 }
+
+UsersList.propTypes = {
+  selectUser: PropTypes.func,
+  setAddTrue: PropTypes.func,
+};
+
+UsersList.defaultProps = {
+  selectUser: () => {},
+  setAddTrue: () => {},
+};
+
 export default observer(UsersList);

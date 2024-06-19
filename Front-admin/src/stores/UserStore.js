@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { API_URL_PRODUITS } from "./config";
-import User from "./User";
+import { API_URL_USERS } from "./config";
 
 class UserStore {
     _loading;
@@ -16,10 +15,11 @@ class UserStore {
 
     async loadUsers() {
         try {
-            let users = await fetch(API_URL_PRODUITS).then((value) => value.json());
+            let users = await fetch(API_URL_USERS).then((value) => value.json());
             runInAction(() => {
-                this._users = users.map((user) => new User(user));
-                this._users = this._users.sort((a, b) => a.nom.localeCompare(b.nom));
+                this._users = users.map((user) => user);
+                console.log(this._users);
+                this._users = this._users.sort((a, b) => a.pseudo.localeCompare(b.pseudo));
                 this._loading = false;
             });
         } catch (error) {
@@ -30,16 +30,9 @@ class UserStore {
         }
     }
 
-    get course() {
-        return this._course;
-    }
-
     get users() {
+        console.log(this._users);
         return this._users;
-    }
-
-    set users(value) {
-        this._users = value;
     }
 
     get loading() {
@@ -47,13 +40,12 @@ class UserStore {
     }
 
     get roles() {
-        const roles = new Set(this._users.map(user => user.role))
+        const roles = new Set(this._users.flatMap(user => user.role))
         return [...roles].sort();
     }
 
-    getStudentByRole(roleName) {
-        const usersFromRole = this._users.filter(user => user.role === roleName);
-        return usersFromRole
+    getUserByRole(roleName) {
+        return this._users.filter(user => user.role === roleName); // Correction de la propriété role
     }
 
     getUserById(id) {
@@ -63,10 +55,10 @@ class UserStore {
     async updateUser(data) {
         let user = this.getUserById(data.id);
         if (!user) {
-            return { success: false, message: "Etudiant inexistant" };
+            return { success: false, message: "Administrateur inexistant" };
         } else {
             try {
-                const response = await fetch(`${API_URL_PRODUITS}/${user.id}`, {
+                const response = await fetch(`${API_URL_USERS}/${user.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -78,7 +70,7 @@ class UserStore {
                     runInAction(() => {
                         Object.assign(user, updatedData);
                     });
-                    return { success: true, message: "Etudiant modifié" };
+                    return { success: true, message: "Administrateur modifié" };
                 } else {
                     return { success: false, message: `Request failed with status ${response.status}` };
                 }
@@ -88,8 +80,29 @@ class UserStore {
         }
     }
 
-
-
-
+    async addUser(data) {
+        console.log(data)
+        try {
+            const response = await fetch(`${API_URL_USERS}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            if (response.ok) {
+                const newUser = await response.json(); // Pour obtenir l'utilisateur ajouté depuis l'API
+                runInAction(() => {
+                    this._users.push(newUser); // Ajout du nouvel utilisateur à la liste
+                });
+                return { success: true, message: "Utilisateur ajouté" };
+            } else {
+                return { success: false, message: `Request failed with status ${response.status}` };
+            }
+        } catch (error) {
+            return { success: false, message: `${error}` };
+        }
+    }
 }
+
 export default UserStore;

@@ -22,5 +22,12 @@ export const useProductStore = () => {
     }
     return context.productStore;
 };
+export const useUserStore = () => {
+    const context = useContext(GlobalContext);
+    if (!context) {
+        throw new Error("useUserStore must be within a StoreProvider");
+    }
+    return context.userStore;
+};
 
 

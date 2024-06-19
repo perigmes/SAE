@@ -152,6 +152,19 @@ LES OPTIONS DU MENU DES PRODUITS
   opacity: 1;
 }
 
+.tColorGrey300 {
+  border-color: rgb(209 213 219);
+}
+
+.tColorGrey500 {
+  color: rgb(107 114 128);
+}
+
+.wh-10 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 /*
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
