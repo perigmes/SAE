@@ -12,7 +12,6 @@ import { Button } from "@headlessui/react";
 function ProductsList({selectProduct,setAddTrue}) {
   const productContext = useProductStore();
   let { categorie } = useParams();
-  const { categories }= productContext;
   let [selectedGroup, setSelectedGroup] = useState(
     categorie ? productContext.getProductByGroup(categorie) : productContext.products
   );

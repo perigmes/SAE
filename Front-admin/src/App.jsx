@@ -3,7 +3,6 @@ import {  useProductStore } from "./stores/index";
 import { Outlet } from "react-router-dom";
 import Nav from "./components/Nav";
 import { observer } from "mobx-react";
-import ProductUpdate from "./pages/ProductUpdate";
 
 function App() {
   let productStore = useProductStore();

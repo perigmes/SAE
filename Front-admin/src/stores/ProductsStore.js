@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { API_URL_PRODUITS } from "./config";
-import Product from "./Product";
 
 class ProductsStore {
     _loading;
@@ -94,18 +93,27 @@ class ProductsStore {
         }
     }
     async addProduct(data) {
-        console.log(data)
+        console.log(data);
+
+        console.log(JSON.stringify(data));
             try {
                 const response = await fetch(`${API_URL_PRODUITS}`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                       
                     },
                     body: JSON.stringify(data)
                 });
                 if (response.ok) {
+                    const newProduct = await response.json();
+                    console.log(newProduct)
                     runInAction(() => {
-                        Object.assign(data);
+                        this._products.push(newProduct);
+                        this.loadProducts()
+
                     });
                     return { success: true, message: "Produit ajouté" };
                 } else {
@@ -115,6 +123,34 @@ class ProductsStore {
                 return { success: false, message: `${error}` };
             }
         }
+        
+    async deleteProduct(id) {
+        console.log(id)
+        let product = this.getProductById(id);
+        if (!product) {
+            return { success: false, message: "Produit inexistant" };
+        } else {
+            try {
+                const response = await fetch(`${API_URL_PRODUITS}/${product.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                if (response.ok) {
+                    runInAction(() => {
+                        this._products.filter((product)=>{return product.id !==id});
+                        this.loadProducts()
+                    });
+                    return { success: true, message: "Produit supprimé" };
+                } else {
+                    return { success: false, message: `Request failed with status ${response.status}` };
+                }
+            } catch (error) {
+                return { success: false, message: `${error}` };
+            }
+        }
+    }
     }
 
 

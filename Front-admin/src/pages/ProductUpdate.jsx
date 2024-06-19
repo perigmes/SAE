@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useProductStore } from "../stores";
 import { Fieldset,Field,Select,Button } from "@headlessui/react";
-import clsx from 'clsx'
 
 function ProductUpdate({productSelected,validate}) {
   const productStore = useProductStore();
-  const navigate = useNavigate();
   let [product, setProduct] = useState(null);
   let [error, setError] = useState(null);
+  const categories = ["Canard","Rat","Souris"];
   useEffect(
     () => setProduct(productStore.getProductById(productSelected)),
     [productSelected, productStore, productStore.products]
@@ -38,6 +33,15 @@ function ProductUpdate({productSelected,validate}) {
       {product ? (
         <main>
           <h1>Fiche Produit RP {product.id}</h1>
+          <Button onClick={(async ()=>{ let { success, message } = await productStore.deleteProduct(
+      product.id
+    );
+    if (success) {
+      validate()
+    } else {
+      setError(message);
+    }
+  } )}> Supprimer</Button>
           <form
           key={product.id}
             action="#"
@@ -85,7 +89,7 @@ function ProductUpdate({productSelected,validate}) {
               className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
   
             >
-              {productStore.categories.map((categorie) => (
+              {categories.map((categorie) => (
                 <option key={categorie} value={categorie}>
                   {categorie}
                 </option>

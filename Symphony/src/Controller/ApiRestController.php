@@ -476,6 +476,7 @@ class ApiRestController extends AbstractController
 			$response->setContent(json_encode($article));
 			$response->headers->set('Content-Type', 'application/json');
 			$response->headers->set('Access-Control-Allow-Origin', '*');
+		
 			return $response;
 		} else {
 			$response = new Response();

@@ -12,13 +12,14 @@ function Products() {
         <>
           <div className="dnc">
           <div className="ari arr cex ddc ddo">
-            <ProductsList selectProduct={(value)=>{setProductSelect(value)}} setAddTrue={()=>setIsAdding(true)}/>
+            <ProductsList selectProduct={(value)=>{
+                setProductSelect(value); 
+                setIsAdding(false)}} setAddTrue={()=>{setIsAdding(true); setProductSelect(null)}}/>
             </div>
             </div>
                <div className="z as de md sn adk afj afv ari ase cex ddc diq">
                 <div className="ab pa adh ady afa afq afx bbe adl">
-                {productSelect && <ProductUpdate productSelected={productSelect} validate={()=>setProductSelect(null)}/>}
-                {isAdding &&<ProductAdd validate={()=>setProductSelect(null)} close={()=>setIsAdding(false)}/>}
+                {productSelect ?( <ProductUpdate productSelected={productSelect} validate={()=>setProductSelect(null)}/>):(isAdding &&<ProductAdd validate={()=>setProductSelect(null)} close={()=>setIsAdding(false)}/>)}
 
                 </div>
             </div>

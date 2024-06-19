@@ -1,6 +1,6 @@
 import React from "react";
 import { useProductStore } from "../stores";
-import { useLocation, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Transition } from '@headlessui/react'
 import { useEffect } from "react";
@@ -88,7 +88,7 @@ useEffect(() => {
         </li>
         <li className="ge lp">
           <NavLink className="lx za aah ark arz awa awg awp axv bid" to={"/profile"}>
-            <img className="og sk adt aip" src={userStore.image} alt="photo de profil" />
+            <img className="og sk adt aip" src={userStore.image} alt="profil" />
             <span className="t">Ton profile</span>
             <span aria-hidden="true">Tom Cook</span>
           </NavLink>
