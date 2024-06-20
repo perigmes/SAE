@@ -7,26 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Souris extends Article
 {
-    #[ORM\Column(length: 255,name: 'connectivite')]
-    private ?string $connectivite = null;
+    #[ORM\Column(length: 255,name: 'connectivity')]
+    private ?string $connectivity = null;
 
     #[ORM\Column(length: 255, name: 'usage')]
     private ?string $usage = null;
 
-    #[ORM\Column(length: 255, name: 'marque')]
-    private ?string $marque = null;
+    #[ORM\Column(length: 255, name: 'brand')]
+    private ?string $brand = null;
     
     #[ORM\Column(length: 255, name: 'matiere')]
     private ?string $matiere = null;
     
-    public function getConnectivite(): ?string
+    public function getConnectivity(): ?string
     {
-        return $this->connectivite;
+        return $this->connectivity;
     }
 
-    public function setConnectivite(string $connectivite): static
+    public function setConnectivity(string $connectivity): static
     {
-        $this->connectivite = $connectivite;
+        $this->connectivity = $connectivity;
 
         return $this;
     }
@@ -43,14 +43,14 @@ class Souris extends Article
         return $this;
     }
 
-    public function getMarque(): ?string
+    public function getBrand(): ?string
     {
-        return $this->marque;
+        return $this->brand;
     }
 
-    public function setMarque(string $marque): static
+    public function setBrand(string $brand): static
     {
-        $this->marque = $marque;
+        $this->brand = $brand;
 
         return $this;
     }

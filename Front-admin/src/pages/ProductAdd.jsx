@@ -8,11 +8,16 @@ import { Fieldset, Field, Button, Checkbox, Listbox, Label, ListboxButton, Listb
 
 function ProductAdd({ validate, close }) {
   const productStore = useProductStore();
-  const [enabled, setEnabled] = useState(false);
+  const [isCheckedRecyclable, setIsCheckedRecyclable] = useState(false);
   let [error, setError] = useState(null);
+  const [dimensions,setDimensions]= useState("");
+  const [dimensions2,setDimensions2]= useState("");
+  const [usageSelected,setUsageSelected]= useState("");
   const [categorieSelected, setCategorieSelected] = useState("");
   const [imageURL, setImageURL] = useState("");
   const categories = ["Canard","Rat","Souris"];
+  const[connectivity, setConnectivity] = useState("")
+  const usages= ["Bureau","Gaming"];
 
 
 
@@ -38,13 +43,25 @@ function ProductAdd({ validate, close }) {
 
     let data = Object.fromEntries(new FormData(event.target));
     console.log(data);
+    if(categorieSelected==="Canard"){
+          data.dimensions = dimensions+"x"+dimensions2;
+              data.isRecyclable = isCheckedRecyclable;
     data.weight = parseFloat(data.weight);
+    }
+    if(categorieSelected==="Rat"){
+      data.height = parseInt(data.height);
+      data.solde = parseFloat(data.solde);
+      data.age = parseInt(data.age);
+    }
+    if(categorieSelected=== "Souris"){
+      data.connectivity= connectivity;
+      data.usage= usageSelected;
+    }
     data.price = parseFloat(data.price);
     data.categorie = categorieSelected;
     data.disponibilite = parseInt(data.disponibilite);
     data.image = imageURL;
     data.article_type = categorieSelected.toLowerCase();
-    data.isRecyclable = enabled;
     let { success, message } = await productStore.addProduct({
       ...data,
     });
@@ -94,7 +111,7 @@ function ProductAdd({ validate, close }) {
               />
             </Field>
             <Field className="relative ">
-              <Label htmlFor="categorie" className="rfl lu">catégorie</Label>
+              <Label htmlFor="categorie" className="rfl lu">Catégorie</Label>
 
               <Listbox value={categorieSelected} onChange={setCategorieSelected}>
                 <ListboxButton className="relative to text-left arf"> {categorieSelected?categorieSelected:"Sélectionnez une catégorie"}<ChevronDownIcon
@@ -161,15 +178,27 @@ function ProductAdd({ validate, close }) {
           {categorieSelected === "Canard" ? (<Fieldset>
             <Field>
               <label htmlFor="dimensions" className="block dfu awe dfx">dimensions</label>
-
+            <div className="bxm">
               <input
-                type="string"
+                type="number"
                 name="dimensions"
                 id="dimensions"
+                onChange={(e)=>setDimensions(e.target.value)}
+
                 required
-                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                className='cur rfl ring-right afb avm arq axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
                 title="Les dimensions doivent être sous le format 00x00"
               />
+              <span className=" bg-white-2">x</span><input
+              type="number"
+              name="dimensions"
+              id="dimensions"
+              onChange={(e)=>setDimensions2(e.target.value)}
+              required
+              className='cur rfl ring-left afb text-left arq axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+              title="Les dimensions doivent être sous le format 00x00"
+            />
+            </div>
             </Field>
             <Field>
               <label htmlFor="weight" className="block dfu awe dfx">poids</label>
@@ -200,10 +229,10 @@ function ProductAdd({ validate, close }) {
               <label htmlFor="isRecyclable" className="block dfu awe dfx">recyclable</label>
 
               <Checkbox
-                checked={enabled}
+                checked={isCheckedRecyclable}
                 name="isRecyclable"
                 id="isRecyclable"
-                onChange={setEnabled}
+                onChange={setIsCheckedRecyclable}
                 className="group block size-4 rounded border bg-white data-[checked]:bg-blue-500"
               >
                 {/* Checkmark icon */}
@@ -238,7 +267,115 @@ function ProductAdd({ validate, close }) {
                 title="La fabrication doit comporter entre 2 et 255 caractères"
               />
             </Field>
-          </Fieldset>) : (null)}
+          </Fieldset>) : 
+          (categorieSelected==="Rat"?(<Fieldset>
+            <Field>
+              <Label htmlFor="solde">Solde</Label>
+              <input
+                type="number"
+                name="solde"
+                id="solde"
+                required
+                min={1}
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="Le solde doit être de minimum 1"
+              />
+            </Field>
+            <Field>
+              <Label htmlFor="height">Taille</Label>
+              <input
+                type="number"
+                name="height"
+                id="height"
+                required
+                min={1}
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="La taille doit être de minimum 1"
+              />
+            </Field>
+            <Field>
+              <Label htmlFor="age">Age</Label>
+              <input
+                type="number"
+                name="age"
+                id="age"
+                required
+                min={1}
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="L'âge doit être de minimum 1"
+              />
+            </Field>
+          </Fieldset>):
+          (categorieSelected==="Souris"?(<Fieldset>
+            <Field>
+              <Label htmlFor="brand">Marque</Label>
+              <input
+                name="brand"
+                id="brand"
+                required
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="La marque doit contenir au moins 2 caractères"
+              />
+            </Field>
+            <Field>
+              <Label htmlFor="usage">
+                Usage
+              </Label>
+              <Listbox name="usage" value={usageSelected} onChange={setUsageSelected}>
+                <ListboxButton className="relative to text-left arf"> {usageSelected?usageSelected:"Sélectionnez un usage"}<ChevronDownIcon
+                  className="group pointer-events-none absolute do de"
+                  aria-hidden="true"
+                /></ListboxButton>
+                <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                  <ListboxOptions
+                    anchor="bottom"
+                    className="w-16 cdf cek border border-white/5 bg-white p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none"
+                  >
+                    {usages.map((usage) => (
+                      <ListboxOption key={usage} value={usage}className="lx ysr zg xr">
+                        {usage}
+                        <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" />
+                      </ListboxOption>
+                    ))}
+                  </ListboxOptions>
+                </Transition>
+              </Listbox>
+            </Field>
+            <Field>
+              <Label htmlFor="connectivity">Connectivité</Label>
+              <Listbox name="connectivity" value={connectivity} onChange={setConnectivity}>
+                <ListboxButton className="relative to text-left arf"> {connectivity?connectivity:"Sélectionnez un mode de connectivité"}<ChevronDownIcon
+                  className="group pointer-events-none absolute do de"
+                  aria-hidden="true"
+                /></ListboxButton>
+                <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+                  <ListboxOptions
+                    anchor="bottom"
+                    className="w-16 cdf cek border border-white/5 bg-white p-1 [--anchor-gap:var(--spacing-1)] focus:outline-none"
+                  >
+                      <ListboxOption key="bluetooth" value="bluetooth" className="lx ysr zg xr">
+                        Bluetooth
+                        <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" />
+                      </ListboxOption>
+                      <ListboxOption key="filaire" value="filaire" className="lx ysr zg xr">
+                        Filaire
+                        <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" />
+                      </ListboxOption>
+                  </ListboxOptions>
+                </Transition>
+              </Listbox>
+            </Field>
+            <Field>
+              <Label htmlFor="matiere">Matière</Label>
+              <input
+                name="matiere"
+                id="matiere"
+                required
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="La matière doit contenir 2 caractères minimum"
+              />
+            </Field>
+            </Fieldset>):(null)))}
 
           <div className="lx caw zn zg">
             <Button className="text-blue cev cfg dbb bg-white"

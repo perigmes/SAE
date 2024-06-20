@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity\Catalogue;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,9 +11,10 @@ class Rat extends Article
     #[ORM\Column(length: 255, name: 'solde')]
     private ?int $solde = null;
 
-    #[ORM\Column(length: 255, name: 'taille')]
-    private ?int $taille = null;
+    #[ORM\Column(length: 255, name: 'height')]
+    private ?int $height = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'age')]
     private ?int $age = null;
     
@@ -28,14 +30,14 @@ class Rat extends Article
         return $this;
     }
 
-    public function getTaille(): ?int
+    public function getHeight(): ?int
     {
-        return $this->taille;
+        return $this->height;
     }
 
-    public function setTaille(int $taille): static
+    public function setTaille(int $height): static
     {
-        $this->taille = $taille;
+        $this->height = $height;
 
         return $this;
     }

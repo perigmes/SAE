@@ -4531,6 +4531,12 @@ body {
 .adv {
   border-radius: 0.375rem;
 }
+.ring-right{
+  border-radius: 0.375rem 0  0 0.375rem;
+}
+.ring-left{
+  border-radius: 0 0.375rem 0.375rem 0;
+}
 .adw {
   border-radius: 0px;
 }
@@ -4991,6 +4997,9 @@ body {
 }
 .bg-white{
   background-color: #DCDCEA;
+}
+.bg-white-2{
+  background-color: #fff;
 }
 .aiu {
   background-color: rgb(55 65 81 / 0.4);

@@ -15,6 +15,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Catalogue\Livre;
 use App\Entity\Catalogue\Musique;
 use App\Entity\Catalogue\Canard;
+use App\Entity\Catalogue\Souris;
+use App\Entity\Catalogue\Rat;
+
+
 use App\Entity\Users\Admin;
 
 
@@ -394,64 +398,153 @@ class ApiRestController extends AbstractController
 				// $article['dim'] = array_map('intval', $article['dim']);
 
 			}
-			// 	if($article["article_type"] == "rat") {
-			// 		$entity = new Livre() ;
-			// 		$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
-			// 		$formBuilder->add("id", TextType::class) ;
-			// 		$formBuilder->add("title", TextType::class) ;
-			// 		$formBuilder->add("auteur", TextType::class) ;
-			// 		$formBuilder->add("prix", NumberType::class) ;
-			// 		$formBuilder->add("disponibilite", IntegerType::class) ;
-			// 		$formBuilder->add("image", TextType::class) ;
-			// 		$formBuilder->add("ISBN", TextType::class, ['required' => true]) ;
-			// 		$formBuilder->add("nbPages", IntegerType::class) ;
-			// 		$formBuilder->add("dateDeParution", TextType::class) ;
-			// 		// Generate form
-			// 		$form = $formBuilder->getForm();
-			// 		$form->submit($article);
-			// 		if ($form->isSubmitted()) {
-			// 			try {
-			// 				$entity = $form->getData() ;
-			// 				$id = hexdec(uniqid()) ; // $id must be of type int
-			// 				$entity->setId($id);
-			// 				$this->entityManager->persist($entity);
-			// 				$this->entityManager->flush();
-			// 				$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a where a.id like :id");
-			// 				$query->setParameter("id", $id) ; 
-			// 				$article = $query->getArrayResult();
-			// 				$response = new Response() ;
-			// 				$response->setStatusCode(Response::HTTP_CREATED); // 201 https://github.com/symfony/http-foundation/blob/5.4/Response.php
-			// 				$response->setContent(json_encode($article)) ;
-			// 				$response->headers->set('Content-Type', 'application/json');
-			// 				$response->headers->set('Content-Location', '/wp-json/wc/v3/products/' . $id);
-			// 				$response->headers->set('Access-Control-Allow-Origin', '*');
-			// 				$response->headers->set('Access-Control-Allow-Headers', '*');
-			// 				$response->headers->set('Access-Control-Expose-Headers', 'Content-Location');
-			// 				return $response ;
-			// 			}
-			// 			catch(ConstraintViolationException $e) {
-			// 				$errors = $form->getErrors() ;
-			// 				$response = new Response() ;
-			// 				$response->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY); // 422 https://github.com/symfony/http-foundation/blob/5.4/Response.php
-			// 				$response->setContent(json_encode(array('message' => 'Invalid input','errors' => 'Constraint violation'))) ;
-			// 				$response->headers->set('Content-Type', 'application/json');
-			// 				$response->headers->set('Access-Control-Allow-Origin', '*');
-			// 				$response->headers->set('Access-Control-Allow-Headers', '*');
-			// 				return $response ;
-			// 			}
-			// 		}
-			// 		else {
-			// 			$errors = $form->getErrors() ;
-			// 			$response = new Response() ;
-			// 			$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
-			// 			$response->setContent(json_encode(array('message' => 'Invalid input','errors' => $errors->__toString()))) ;
-			// 			$response->headers->set('Content-Type', 'application/json');
-			// 			$response->headers->set('Access-Control-Allow-Origin', '*');
-			// 			$response->headers->set('Access-Control-Allow-Headers', '*');
-			// 			return $response ;
-			// 		}
-			// 	}
-			// }
+			if($article['article_type'] == 'rat'){
+				
+				$entity = new Rat();
+				$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
+				$formBuilder->add("title", TextType::class);
+
+				$formBuilder->add("categorie", TextType::class);
+
+				$formBuilder->add("price", NumberType::class);
+
+				$formBuilder->add("disponibilite", IntegerType::class);
+
+				$formBuilder->add("image", TextType::class);
+
+				$formBuilder->add("description", TextType::class);
+
+				$formBuilder->add("weight", NumberType::class);
+
+				$formBuilder->add("solde", NumberType::class);
+
+				$formBuilder->add("height", IntegerType::class);
+
+				$formBuilder->add("age", IntegerType::class);
+
+				// // Generate form
+				$form = $formBuilder->getForm();
+				$form->submit($article);
+				if ($form->isSubmitted()) {
+					try {
+						$entity = $form->getData();
+						$id = hexdec(uniqid()); // $id must be of type int
+						$entity->setId($id);
+						$entity->setSelled(0);
+						$this->entityManager->persist($entity);
+						$this->entityManager->flush();
+						$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a where a.id like :id");
+						$query->setParameter("id", $id);
+						$article = $query->getArrayResult();
+						$response = new Response();
+						$response->setStatusCode(Response::HTTP_CREATED); // 201 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+						$response->setContent(json_encode($article));
+						$response->headers->set('Content-Type', 'application/json');
+						$response->headers->set('Content-Location', '/wp-json/wc/v3/products/' . $id);
+						$response->headers->set('Access-Control-Allow-Origin', '*');
+						$response->headers->set('Access-Control-Allow-Headers', '*');
+						$response->headers->set('Access-Control-Expose-Headers', 'Content-Location');
+
+						return $response;
+					} catch (ConstraintViolationException $e) {
+						$errors = $form->getErrors();
+						$response = new Response();
+						$errorMessages = [];
+						foreach ($errors as $error) {
+							$errorMessages[] = $error->getMessage();
+						}
+						$response = new Response(json_encode(['message' => 'Invalid input', 'errors' => $errorMessages]), Response::HTTP_UNPROCESSABLE_ENTITY);
+						$response->headers->set('Content-Type', 'application/json');
+						$response->headers->set('Access-Control-Allow-Origin', '*');
+						$response->headers->set('Access-Control-Allow-Headers', '*');
+						return $response;
+					}
+				} else {
+					$errors = $form->getErrors();
+					$response = new Response();
+					$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+					$response->setContent(json_encode(array('message' => 'Invalid input', 'errors' => $errors->__toString())));
+					//$response->setContent(json_encode(array('message' => 'Invalid input'))) ;
+					$response->headers->set('Content-Type', 'application/json');
+					$response->headers->set('Access-Control-Allow-Origin', '*');
+					$response->headers->set('Access-Control-Allow-Headers', '*');
+					return $response;
+				}
+			}
+			if($article["article_type"] == "souris"){
+				
+				$entity = new Souris();
+				$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
+				$formBuilder->add("title", TextType::class);
+
+				$formBuilder->add("categorie", TextType::class);
+
+				$formBuilder->add("price", NumberType::class);
+
+				$formBuilder->add("disponibilite", IntegerType::class);
+
+				$formBuilder->add("image", TextType::class);
+
+				$formBuilder->add("description", TextType::class);
+
+				$formBuilder->add("connectivity", CheckBoxType::class);
+
+				$formBuilder->add("brand", TextType::class);
+
+				$formBuilder->add("usage", TextType::class);
+
+				$formBuilder->add("matiere", TextType::class);
+
+				// // Generate form
+				$form = $formBuilder->getForm();
+				$form->submit($article);
+				if ($form->isSubmitted()) {
+					try {
+						$entity = $form->getData();
+						$id = hexdec(uniqid()); // $id must be of type int
+						$entity->setId($id);
+						$entity->setSelled(0);
+						$this->entityManager->persist($entity);
+						$this->entityManager->flush();
+						$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a where a.id like :id");
+						$query->setParameter("id", $id);
+						$article = $query->getArrayResult();
+						$response = new Response();
+						$response->setStatusCode(Response::HTTP_CREATED); // 201 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+						$response->setContent(json_encode($article));
+						$response->headers->set('Content-Type', 'application/json');
+						$response->headers->set('Content-Location', '/wp-json/wc/v3/products/' . $id);
+						$response->headers->set('Access-Control-Allow-Origin', '*');
+						$response->headers->set('Access-Control-Allow-Headers', '*');
+						$response->headers->set('Access-Control-Expose-Headers', 'Content-Location');
+
+						return $response;
+					} catch (ConstraintViolationException $e) {
+						$errors = $form->getErrors();
+						$response = new Response();
+						$errorMessages = [];
+						foreach ($errors as $error) {
+							$errorMessages[] = $error->getMessage();
+						}
+						$response = new Response(json_encode(['message' => 'Invalid input', 'errors' => $errorMessages]), Response::HTTP_UNPROCESSABLE_ENTITY);
+						$response->headers->set('Content-Type', 'application/json');
+						$response->headers->set('Access-Control-Allow-Origin', '*');
+						$response->headers->set('Access-Control-Allow-Headers', '*');
+						return $response;
+					}
+				} else {
+					$errors = $form->getErrors();
+					$response = new Response();
+					$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+					$response->setContent(json_encode(array('message' => 'Invalid input', 'errors' => $errors->__toString())));
+					//$response->setContent(json_encode(array('message' => 'Invalid input'))) ;
+					$response->headers->set('Content-Type', 'application/json');
+					$response->headers->set('Access-Control-Allow-Origin', '*');
+					$response->headers->set('Access-Control-Allow-Headers', '*');
+					return $response;
+				}
+			}
+			
 			else {
 				$response = new Response();
 				$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php

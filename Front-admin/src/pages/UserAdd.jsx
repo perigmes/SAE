@@ -38,7 +38,6 @@ function UserAdd({validate,close}) {
     data.image = imageURL;
     data.article_type= categorie.toLowerCase();
     data.recyclable= enabled;
-    data.id=id
     let { success, message } = await userStore.addUser({
       ...data,
     });

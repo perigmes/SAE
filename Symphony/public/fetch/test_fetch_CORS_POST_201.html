@@ -16,22 +16,19 @@
 	</div>
 
 	<script>
-
 		async function test() { // fonction asynchrone
 			let json = JSON.stringify({
-				article_type: "canard",
-				categorie: "Canard",
+				article_type: "souris",
+				categorie: "Souris",
 				description: "uih",
-				dimensions: "55x55",
 				disponibilite: 56,
-				 fabrication: "liuh",
-				 matiere: "lkb",
-				 standard: "iuwshd",
-				weight: 3.00,
-				 price: 12.12,
-				isRecyclable: false,
+				brand: "logitech",
+				connectivity: "bluetooth",
+				matiere: "test",
+				usage: "Bureau",
+				price: 12.12,
 				title: "lulkh",
-				 image: "https://m.media-amazon.com/images/I/717GP+JqcTL._AC_UY327_FMwebp_SL140_.jpg"
+				image: "https://m.media-amazon.com/images/I/717GP+JqcTL._AC_UY327_FMwebp_SL140_.jpg"
 			});
 			console.log(json);
 			document.getElementById("json").innerHTML = json;
