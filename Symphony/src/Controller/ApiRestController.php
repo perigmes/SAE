@@ -414,8 +414,6 @@ class ApiRestController extends AbstractController
 
 				$formBuilder->add("description", TextType::class);
 
-				$formBuilder->add("weight", NumberType::class);
-
 				$formBuilder->add("solde", NumberType::class);
 
 				$formBuilder->add("height", IntegerType::class);

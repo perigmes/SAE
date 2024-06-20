@@ -74,9 +74,9 @@ class AppFixtures extends Fixture
 			$entitySouris->setPrice("25.25");
 			$entitySouris->setDisponibilite(23);
 			$entitySouris->setSelled(750);
-			$entitySouris->setConnectivite("Filaire USB");
+			$entitySouris->setConnectivity("Filaire USB");
 			$entitySouris->setUsage("Gaming");
-			$entitySouris->setMarque("Razer");
+			$entitySouris->setBrand("Razer");
 			$entitySouris->setMatiere("Plastique");
 			$entitySouris->setDescription("Véritable capteur optique de 6 400 DPI Pour des balayages rapides et précis: Gardez toujours le contrôle. La Razer DeathAdder Essential dispose d'un véritable capteur optique de 6 400 DPI avec une solide réputation de haute performance éprouvée pour des balayages rapides et précis. Cela vous permet un contrôle fluide et facile malgré la complexité de la bataille.
     Forme ergonomique Pour profiter confortablement de longues heures de jeu: Soyez hautement performant pendant les marathons de jeu. Sa forme ergonomique s'adapte facilement à vos mains, de sorte que vous soyez toujours d'attaque au cœur de la bataille pendant de longues heures de jeu.
@@ -92,9 +92,9 @@ class AppFixtures extends Fixture
 			$entitySouris->setPrice("159.99");
 			$entitySouris->setDisponibilite(2);
 			$entitySouris->setSelled(1);
-			$entitySouris->setConnectivite("Filaire USB");
+			$entitySouris->setConnectivity("Filaire USB");
 			$entitySouris->setUsage("Gaming");
-			$entitySouris->setMarque("Rat X3");
+			$entitySouris->setBrand("Rat X3");
 			$entitySouris->setMatiere("Plastique");
 			$entitySouris->setDescription("2700 configurations physiques possibles pour parfaitement ajuster la RAT Pro x3 à votre main et style de jeu
     Capteur pixart PMW3389 (16000dpi max), taux de rapport USB (Polling rate) très élevé: jusqu'à 3000 Hz
@@ -115,7 +115,7 @@ class AppFixtures extends Fixture
 			$entityRat->setDescription("Rencontrez Logan, le rat le plus astucieux et économe de tous les temps ! Toujours à l'affût des meilleures affaires, Logan transforme chaque centime en une opportunité de grandir. Son flair exceptionnel pour dénicher les bons plans et sa capacité à éviter les dépenses superflues font de lui le gardien idéal de votre budget. Avec son sourire frugal et son instinct infaillible pour les économies, Logan vous montrera comment profiter de la vie sans jamais compromettre vos finances. Que vous soyez un amateur de défis financiers ou simplement désireux de mieux gérer vos ressources, Logan est le partenaire parfait pour vous accompagner vers un avenir plus prospère. Ne manquez pas cette chance unique d'adopter un véritable expert de l'épargne !");
 			$entityRat->setImage("https://media.licdn.com/dms/image/D4E03AQHlxT4FwcDzrQ/profile-displayphoto-shrink_800_800/0/1678958194743?e=2147483647&v=beta&t=K-OETZAsIZlP9tF0gfIdNtJLTHnIhVfL8CUOPngC_rE");
 			$entityRat->setSolde(1000);
-			$entityRat->setTaille(120);
+			$entityRat->setHeight(120);
 			$entityRat->setAge(20);
 			$manager->persist($entityRat);
 
@@ -130,7 +130,7 @@ class AppFixtures extends Fixture
 			$entityRat->setDescription("Rencontrez Charlie, le rat malin et économe qui sait comment maximiser chaque sou. Toujours à l’affût des meilleures affaires, Charlie transforme chaque dépense en investissement intelligent. Son talent pour trouver les bons plans et sa prudence légendaire en matière de dépenses font de lui un compagnon de choix pour ceux qui cherchent à économiser sans sacrifier la qualité de vie. Avec Charlie à vos côtés, vous découvrirez comment naviguer dans le monde financier avec assurance et intelligence. Que vous soyez un collectionneur de trésors cachés ou un novice en quête de conseils avisés, Charlie est prêt à vous guider vers un avenir plus riche et plus responsable. Ne manquez pas l'opportunité d'accueillir cet expert de l'épargne dans votre vie !");
 			$entityRat->setImage("https://i.ibb.co/9bTfM4F/chacha.png");
 			$entityRat->setSolde(1000);
-			$entityRat->setTaille(120);
+			$entityRat->setHeight(120);
 			$entityRat->setAge(20);
 			$manager->persist($entityRat);
 

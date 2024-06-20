@@ -35,7 +35,7 @@ class Rat extends Article
         return $this->height;
     }
 
-    public function setTaille(int $height): static
+    public function setHeight(int $height): static
     {
         $this->height = $height;
 
