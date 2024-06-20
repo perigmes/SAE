@@ -112,15 +112,10 @@ function ProductUpdate({productSelected,validate}) {
             </Field>
              </Fieldset>
             <div className="lx caw zn zg">
-  <Button className="text-blue cev cfg dbb bg-white"
-                type="button"
-                onClick={() =>validate() }
-              >
-
+              <Button className="text-blue cev cfg dbb bg-white" type="button" onClick={() =>validate() }>
                 Annuler
               </Button>
-              <Button className="text-white border-blue cev cfg dbb bg-blue py-1.5 px-3 text-sm/6 font-semibold shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white"
-type="submit">
+              <Button className="text-white border-blue cev cfg dbb bg-blue py-1.5 px-3 text-sm/6 font-semibold shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white" type="submit">
                 Sauvegarder 
               </Button>
             </div>

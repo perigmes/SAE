@@ -764,6 +764,18 @@ class ApiRestController extends AbstractController
 
 
 	#==========> LES ADMINS
+	#[Route('/wp-json/wc/v3/users', name: 'allow-create-a-user', methods: ['OPTIONS'])]
+	#[Route('/wp-json/wc/v3/users/{id}', name: 'allow-retrieve-a-user', methods: ['OPTIONS'])]
+
+	public function allowCreateAUser(Request $request): Response
+	{
+		$response = new Response();
+		$response->setStatusCode(Response::HTTP_OK); // 200 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+		$response->headers->set('Access-Control-Allow-Origin', '*');
+		$response->headers->set('Access-Control-Allow-Methods', $request->headers->get('Access-Control-Request-Method'));
+		$response->headers->set('Access-Control-Allow-Headers', $request->headers->get('Access-Control-Request-Headers'));
+		return $response;
+	}
 	
 	#[Route('/wp-json/wc/v3/users', name: 'list-all-users', methods: ['GET'])]
 	public function listAllUsers(): Response
@@ -806,7 +818,6 @@ class ApiRestController extends AbstractController
 	public function createAUser(Request $request): Response
 	{
 		$user = json_decode($request->getContent(), true);
-		var_dump($user);
 		
 		$entity = new Admin();
 		$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
@@ -814,8 +825,8 @@ class ApiRestController extends AbstractController
 		$formBuilder->add("email", TextType::class);
 		$formBuilder->add("mdp", TextType::class);
 		$formBuilder->add("pp", TextType::class);
-		$formBuilder->add("ecriture", CheckboxType::class);
-		$formBuilder->add("lecture", CheckboxType::class);
+		$formBuilder->add("write", CheckboxType::class);
+		$formBuilder->add("read", CheckboxType::class);
 		// // Generate form
 		$form = $formBuilder->getForm();
 		$form->submit($user);
@@ -861,6 +872,103 @@ class ApiRestController extends AbstractController
 			$response->headers->set('Content-Type', 'application/json');
 			$response->headers->set('Access-Control-Allow-Origin', '*');
 			$response->headers->set('Access-Control-Allow-Headers', '*');
+			return $response;
+		}
+	}
+
+	#[Route('/wp-json/wc/v3/users/{id}', name: 'update-a-user', methods: ['PUT'])]
+	public function UpdateAUser(string $id, Request $request, LoggerInterface $logger): Response
+	{
+		$logger->info("Received request to update user with ID: $id");
+		$logger->info("Request body: " . $request->getContent());
+
+		// Recherche de l'article par ID
+		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Users\User a WHERE a.id = :id");
+		$query->setParameter("id", $id);
+
+		try {
+			$article = $query->getSingleResult();
+		} catch (\Doctrine\ORM\NoResultException $e) {
+			$logger->error("No article found for ID: $id");
+			return new Response(
+				json_encode(['message' => 'Resource not found: No article found for id ' . $id]),
+				Response::HTTP_NOT_FOUND,
+				['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+			);
+		}
+
+		// Construire le formulaire basé sur le type d'article
+		$formBuilder = $this->createFormBuilder($article, [
+			'csrf_protection' => false,
+			'allow_extra_fields' => true // Autoriser des champs supplémentaires pour le débogage
+		]);
+
+		// Créer le formulaire et soumettre les données
+		$form = $formBuilder->getForm();
+		$form->submit(json_decode($request->getContent(), true), false); // Soumettre avec les données du corps de la requête
+
+		// Validation du formulaire
+		if ($form->isSubmitted() && $form->isValid()) {
+			try {
+				$this->entityManager->flush();
+				$logger->info("User updated successfully for ID: $id");
+				return new Response(
+					json_encode(['message' => 'User updated successfully']),
+					Response::HTTP_OK,
+					['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+				);
+			} catch (ConstraintViolationException $e) {
+				$logger->error("Constraint violation: " . $e->getMessage());
+				return new Response(
+					json_encode(['message' => 'Invalid input', 'errors' => 'Constraint violation']),
+					Response::HTTP_UNPROCESSABLE_ENTITY,
+					['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+				);
+			}
+		}
+
+		// Retourner les erreurs de validation du formulaire
+		$errors = [];
+		foreach ($form->getErrors(true) as $error) {
+			$errors[] = $error->getMessage();
+		}
+		$logger->error("Form validation failed with errors: " . implode(", ", $errors));
+
+		return new Response(
+			json_encode(['message' => 'Invalid input', 'errors' => $errors]),
+			Response::HTTP_BAD_REQUEST,
+			['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+		);
+	}
+
+	#[Route('/wp-json/wc/v3/users/{id}', name: 'delete-a-user', methods: ['DELETE'])]
+	public function DeleteAUser(string $id): Response
+	{
+		$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Users\User a where a.id like :id");
+		$query->setParameter("id", $id);
+		try {
+			$user = $query->getSingleResult();
+		} catch (\Doctrine\ORM\NoResultException $e) {
+			$user = null;
+		}
+
+		if ($user !== null) {
+			$result = clone $user;
+			$this->entityManager->remove($user);
+			$this->entityManager->flush(); // Apply all changes to the database
+			$response = new Response();
+			$response->setStatusCode(Response::HTTP_OK); // 200 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+			$response->setContent(json_encode($result));
+
+			$response->headers->set('Content-Type', 'application/json');
+			$response->headers->set('Access-Control-Allow-Origin', '*');
+			return $response;
+		} else {
+			$response = new Response();
+			$response->setStatusCode(Response::HTTP_NOT_FOUND); // 404 https://github.com/symfony/http-foundation/blob/5.4/Response.php
+			$response->setContent(json_encode(array('message' => 'Resource not found: No article found for id ' . $id)));
+			$response->headers->set('Content-Type', 'application/json');
+			$response->headers->set('Access-Control-Allow-Origin', '*');
 			return $response;
 		}
 	}

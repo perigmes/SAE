@@ -16,17 +16,18 @@ class User
     #[ORM\GeneratedValue(strategy: "NONE")]
     #[Assert\Positive]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?string $id = null;
 
     #[Assert\Positive]
     #[ORM\Column(length: 255, name: 'pseudo')]
     private ?string $pseudo = null;
 
-    #[Assert\Positive]
+    #[Assert\Email (
+        message: "The email is not valid"
+    )]
     #[ORM\Column(name: 'email')]
     private ?string $email = null;
 
-    #[Assert\Positive]
     #[ORM\Column(name: 'mdp')]
     private ?string $mdp = null;
 	
@@ -34,12 +35,12 @@ class User
     #[ORM\Column(length: 255, name: 'pp')]
     private ?string $pp = null;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 	
-    public function setId(int $id): static
+    public function setId(string $id): static
     {
         $this->id = $id;
 

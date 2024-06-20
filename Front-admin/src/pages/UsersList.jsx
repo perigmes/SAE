@@ -9,7 +9,6 @@ import { Button } from "@headlessui/react";
 
 function UsersList({ selectUser, setAddTrue }) {
   const userContext = useUserStore();
-  console.log(userContext._users);
   let { role } = useParams();
   let [selectedRole, setSelectedRole] = useState(
     role ? userContext.getUserByRole(role) : userContext.users
