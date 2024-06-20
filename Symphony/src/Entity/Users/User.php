@@ -18,7 +18,7 @@ class User
     #[ORM\Column]
     private ?string $id = null;
 
-    #[Assert\Positive]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'pseudo')]
     private ?string $pseudo = null;
 
@@ -28,10 +28,16 @@ class User
     #[ORM\Column(name: 'email')]
     private ?string $email = null;
 
+    // #[Assert\PasswordStrength([
+    //     'minScore' => PasswordStrength::STRENGTH_WEAK,
+    //     'message' => 'Very weak password.'
+    // ])]
     #[ORM\Column(name: 'mdp')]
     private ?string $mdp = null;
 	
-    #[Assert\Positive]
+    #[Assert\Url(
+        message: 'The url is not valid',
+    )]
     #[ORM\Column(length: 255, name: 'pp')]
     private ?string $pp = null;
 

@@ -67,7 +67,7 @@ function ProductsList({selectProduct,setAddTrue}) {
         </div>
       </div>
 
-      <ul className="mb yh zs cao cmo cyo">
+      <ul className="mb yh zs cao cmo cyo adl">
         {!search
           ? selectedGroup.map((product) => {
               return (
