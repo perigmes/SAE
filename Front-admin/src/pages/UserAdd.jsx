@@ -142,7 +142,7 @@ function UserAdd({validate,close}) {
             <div className="lx caw zn zg">
   <Button className="text-blue cev cfg dbb bg-white"
                 type="button"
-                onClick={() =>validate() }
+                onClick={() =>close() }
               >
                 Annuler
               </Button>
