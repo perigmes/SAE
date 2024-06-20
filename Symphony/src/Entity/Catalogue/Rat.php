@@ -5,17 +5,38 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use function PHPSTORM_META\type;
+
 #[ORM\Entity]
 class Rat extends Article
 {
-    #[ORM\Column(length: 255, name: 'solde')]
+    //Déclaration valeur solde
+
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[ORM\Column( name: 'solde')]
     private ?int $solde = null;
 
-    #[ORM\Column(length: 255, name: 'height')]
+    //Déclaration valeur height
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\Positive]
+    #[ORM\Column(name: 'height')]
     private ?int $height = null;
 
-    #[Assert\NotBlank]
-    #[ORM\Column(length: 255, name: 'age')]
+    //Déclaration valeur age
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\Positive(
+        message: 'The value {{ value }} must be positive.',
+    )]
+    #[ORM\Column(name: 'age')]
     private ?int $age = null;
     
     public function getSolde(): ?int

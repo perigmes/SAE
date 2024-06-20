@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: "article_type", type: "string")]
-#[ORM\DiscriminatorMap(["article" => "Article", "livre" => "Livre", "musique" => "Musique", "canard"=>"Canard", "rat"=>"Rat","souris"=>"Souris"])]
+#[ORM\DiscriminatorMap(["article" => "Article","canard"=>"Canard", "rat"=>"Rat","souris"=>"Souris"])]
 class Article
 {
     #[ORM\Id]
@@ -15,24 +15,53 @@ class Article
     #[ORM\Column]
     private ?string $id = null;
 
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(name: 'categorie')]
     private ?string $categorie = null;
 
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(length: 255, name: 'title')]
     private ?string $title = null;
 
+    #[Assert\Type(
+        type: 'float',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(name: 'price')]
     private ?float $price = null;
 
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(name: 'disponibilite')]
     private ?int $disponibilite = null;
 
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(name: 'selled')]
     private ?int $selled = null;
 	
     #[ORM\Column(length: 255, name: 'image')]
     private ?string $image = null;
 
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(length: 255, name: 'description')]
     private ?string $description = null;
 

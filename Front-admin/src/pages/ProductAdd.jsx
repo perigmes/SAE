@@ -75,11 +75,10 @@ function ProductAdd({ validate, close }) {
 
   return (
     <>
-      <main>
         <h1>Ajouter un produit</h1>
         <form
           action="#"
-          className="cur sm:grid-cols-2 adl sm:gap-4 mx-auto mt-8 w-fit"
+          className="cur sm:grid-cols-2 sm:gap-4 mx-auto mt-8 w-fit"
           onSubmit={handleSubmit}
         >
           <Fieldset>
@@ -233,7 +232,7 @@ function ProductAdd({ validate, close }) {
                 name="isRecyclable"
                 id="isRecyclable"
                 onChange={setIsCheckedRecyclable}
-                className="group block size-4 rounded border bg-white data-[checked]:bg-blue-500"
+                className="group block size-4 aoj rounded border bg-white data-[checked]:bg-blue-500"
               >
                 {/* Checkmark icon */}
                 <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
@@ -396,7 +395,6 @@ function ProductAdd({ validate, close }) {
           )}
 
         </form>
-      </main>
 
     </>
   );

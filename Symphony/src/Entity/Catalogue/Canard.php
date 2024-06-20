@@ -7,21 +7,56 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Canard extends Article
 {
-    #[ORM\Column(length: 255,name: 'weight')]
+    //Déclaration valeur weight
+    #[Assert\Type(
+        type: 'float',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[ORM\Column(name: 'weight')]
     private ?float $weight = null;
 
-    #[ORM\Column(length: 255, name: 'dimensions')]
+    //Déclaration valeur dimensions
+    #[Assert\Type(
+        type: 'array',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[ORM\Column( name: 'dimensions')]
     private ?array $dimensions = null;
 
+    //Déclaration valeur standard
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'standard')]
     private ?string $standard = null;
 
-    #[ORM\Column(length: 255, name: 'recyclable')]
+    //Déclaration valeur recyclable
+
+    #[Assert\Type(
+        type: 'boolean',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[ORM\Column( name: 'recyclable')]
     private ?bool $recyclable = null;
-    
+
+    //Déclaration valeur matiere
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[ORM\Column(length: 255, name: 'matiere')]
+    #[Assert\NotBlank]
     private ?string $matiere = null;
 
+    //Déclaration valeur fabrication
+
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'fabrication')]
     private ?string $fabrication = null;
     

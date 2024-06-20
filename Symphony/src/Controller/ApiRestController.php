@@ -12,7 +12,6 @@ use Psr\Log\LoggerInterface;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use App\Entity\Catalogue\Livre;
 use App\Entity\Catalogue\Musique;
 use App\Entity\Catalogue\Canard;
 use App\Entity\Catalogue\Souris;
@@ -640,23 +639,12 @@ class ApiRestController extends AbstractController
 			'allow_extra_fields' => true // Autoriser des champs supplémentaires pour le débogage
 		]);
 
-		if ($article instanceof Musique) {
 			$formBuilder->add("title", TextType::class);
-			$formBuilder->add("artiste", TextType::class);
-			$formBuilder->add("prix", NumberType::class);
-			$formBuilder->add("disponibilite", IntegerType::class);
 			$formBuilder->add("image", TextType::class);
-			$formBuilder->add("dateDeParution", TextType::class);
-		} elseif ($article instanceof Livre) {
-			$formBuilder->add("title", TextType::class);
-			$formBuilder->add("auteur", TextType::class);
-			$formBuilder->add("prix", NumberType::class);
-			$formBuilder->add("disponibilite", IntegerType::class);
-			$formBuilder->add("image", TextType::class);
-			$formBuilder->add("ISBN", TextType::class, ['required' => true]);
-			$formBuilder->add("nbPages", IntegerType::class);
-			$formBuilder->add("dateDeParution", TextType::class);
-		}
+			$formBuilder->add("price", NumberType::class);
+			$formBuilder->add("categorie", TextType::class);
+			$formBuilder->add("description", TextType::class);
+
 
 		// Créer le formulaire et soumettre les données
 		$form = $formBuilder->getForm();

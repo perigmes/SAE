@@ -45,7 +45,6 @@ function UserAdd({validate,close}) {
 
   return (
     <>
-        <main>
           <h1>Ajouter un administrateur</h1>
           <form
             action="#"
@@ -158,7 +157,6 @@ type="submit">
             )}
            
           </form>
-        </main>
       
     </>
   );

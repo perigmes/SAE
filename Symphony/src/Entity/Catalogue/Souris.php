@@ -7,15 +7,39 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Souris extends Article
 {
+    //Déclaration valeur connectivity
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255,name: 'connectivity')]
     private ?string $connectivity = null;
 
+        //Déclaration valeur usage
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'usage')]
     private ?string $usage = null;
 
+    //Déclaration valeur brand
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'brand')]
     private ?string $brand = null;
     
+    //Déclaration valeur matiere
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, name: 'matiere')]
     private ?string $matiere = null;
     
