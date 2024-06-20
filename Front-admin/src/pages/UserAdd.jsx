@@ -1,4 +1,4 @@
-import React, { useState,useId } from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react";
 import { useUserStore } from "../stores";
 import { Fieldset,Field,Button,Checkbox } from "@headlessui/react";
@@ -141,7 +141,7 @@ function UserAdd({validate,close}) {
             <div className="lx caw zn zg">
   <Button className="text-blue cev cfg dbb bg-white"
                 type="button"
-                onClick={() =>validate() }
+                onClick={() =>close() }
               >
                 Annuler
               </Button>

@@ -34,7 +34,7 @@ function UsersList({ selectUser, setAddTrue }) {
       <SearchBar nbCarMin={2} onChange={handleChange}></SearchBar>
       <Button onClick={()=>setAddTrue()}>Ajouter un administrateur</Button>
 
-      <ul>
+      <ul className="adl">
         {!search
           ? userContext.users.map((user) => {
               return (
