@@ -128,7 +128,7 @@ class AppFixtures extends Fixture
 			$entityRat->setDisponibilite(1);
 			$entityRat->setSelled(0);
 			$entityRat->setDescription("Rencontrez Charlie, le rat malin et économe qui sait comment maximiser chaque sou. Toujours à l’affût des meilleures affaires, Charlie transforme chaque dépense en investissement intelligent. Son talent pour trouver les bons plans et sa prudence légendaire en matière de dépenses font de lui un compagnon de choix pour ceux qui cherchent à économiser sans sacrifier la qualité de vie. Avec Charlie à vos côtés, vous découvrirez comment naviguer dans le monde financier avec assurance et intelligence. Que vous soyez un collectionneur de trésors cachés ou un novice en quête de conseils avisés, Charlie est prêt à vous guider vers un avenir plus riche et plus responsable. Ne manquez pas l'opportunité d'accueillir cet expert de l'épargne dans votre vie !");
-			$entityRat->setImage("https://scontent-mrs2-2.cdninstagram.com/v/t51.29350-15/274723903_697667204733986_6362683438566611371_n.webp?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE0NDAuc2RyLmYyOTM1MCJ9&_nc_ht=scontent-mrs2-2.cdninstagram.com&_nc_cat=102&_nc_ohc=ZlE97sqk-QcQ7kNvgG37BFw&edm=AEhyXUkBAAAA&ccb=7-5&ig_cache_key=Mjc4Mjk2NjM3ODg3MTY3NTA4MQ%3D%3D.2-ccb7-5&oh=00_AYBuEb0lF5a7zOmQpIsNHJvGyrh154C2g0J0WL98qb605Q&oe=666ED3BC&_nc_sid=cf751b");
+			$entityRat->setImage("https://i.ibb.co/9bTfM4F/chacha.png");
 			$entityRat->setSolde(1000);
 			$entityRat->setTaille(120);
 			$entityRat->setAge(20);

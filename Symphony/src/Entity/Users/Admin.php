@@ -7,32 +7,32 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Admin extends User
 {
-    #[ORM\Column(length: 255, name: 'ecriture')]
-    private ?bool $ecriture = null;
+    #[ORM\Column(length: 255, name: 'write')]
+    private ?bool $write = null;
 
-    #[ORM\Column(length: 255, name: 'lecture')]
-    private ?bool $lecture = null;
+    #[ORM\Column(length: 255, name: 'read')]
+    private ?bool $read = null;
     
-    public function canWrite(): ?bool
+    public function getWrite(): ?bool
     {
-        return $this->ecriture;
+        return $this->write;
     }
 
-    public function setWrite(bool $ecriture): static
+    public function setWrite(bool $write): static
     {
-        $this->ecriture = $ecriture;
+        $this->write = $write;
 
         return $this;
     }
 
-    public function canRead(): ?bool
+    public function getRead(): ?bool
     {
-        return $this->lecture;
+        return $this->read;
     }
 
-    public function setRead(bool $lecture): static
+    public function setRead(bool $read): static
     {
-        $this->lecture = $lecture;
+        $this->read = $read;
 
         return $this;
     }

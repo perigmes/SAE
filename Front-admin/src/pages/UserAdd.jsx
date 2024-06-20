@@ -1,17 +1,14 @@
 import React, { useState,useId } from "react";
 import { observer } from "mobx-react";
 import { useUserStore } from "../stores";
-import { Fieldset,Field,Button } from "@headlessui/react";
+import { Fieldset,Field,Button,Checkbox } from "@headlessui/react";
 
 function UserAdd({validate,close}) {
   const userStore = useUserStore();
-  const [enabled, setEnabled] = useState(false);
   let [error, setError] = useState(null);
-  const [categorie,setCategorie] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const [dimensions, setDimensions] = useState([]);
-
-  const id= useId();
+  const [isChekedReadMode, setIsChekedReadMode] = useState(false);
+  const [isChekedWriteMode, setIsChekedWriteMode] = useState(false);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -33,12 +30,9 @@ function UserAdd({validate,close}) {
     event.preventDefault();
     
     let data = Object.fromEntries(new FormData(event.target));
-    console.log(data);
-    data.dimensions=dimensions;
-    data.image = imageURL;
-    data.article_type= categorie.toLowerCase();
-    data.recyclable= enabled;
-    data.id=id
+    data.pp = imageURL;
+    data.write = isChekedReadMode;
+    data.read = isChekedWriteMode;
     let { success, message } = await userStore.addUser({
       ...data,
     });
@@ -60,12 +54,12 @@ function UserAdd({validate,close}) {
           >
             <Fieldset>
               <Field>
-            <label htmlFor="name" className="block dfu awe dfx">Nom</label>
+            <label htmlFor="pseudo" className="block dfu awe dfx">Nom</label>
 
             <input
               type="text"
-              name="name"
-              id="name"
+              name="pseudo"
+              id="pseudo"
               required
               className="cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp"
             />
@@ -76,26 +70,72 @@ function UserAdd({validate,close}) {
 
             <input
               type="text"
-              name="name"
-              id="name"
+              name="email"
+              id="email"
               required
               className="cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp"
             />
             </Field>
 
             <Field>
-            <label htmlFor="image" className="block dfu awe dfx">image</label>
+            <label htmlFor="mdp" className="block dfu awe dfx">Mot de passe</label>
+
+            <input
+              type="text"
+              name="mdp"
+              id="mdp"
+              required
+              className="cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp"
+            />
+            </Field>
+
+            <Field>
+            <label htmlFor="pp" className="block dfu awe dfx">Image</label>
 
             <input
               type="file"
-              name="image"
+              name="pp"
               onChange={handleImageChange}
-              id="image"
+              id="pp"
                 accept="image/png, image/jpeg, image/webp"
               required
               className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
               title="L'image doit être au format jpeg,png ou webp"
             />
+            </Field>
+
+            <Field>
+              <label htmlFor="lecture" className="block dfu awe dfx">Lecture</label>
+
+              <Checkbox
+                checked={isChekedWriteMode}
+                name="lecture"
+                id="lecture"
+                onChange={setIsChekedWriteMode}
+                className="group block size-4 rounded border bg-white data-[checked]:bg-blue-500"
+              >
+                {/* Checkmark icon */}
+                <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 8L6 11L11 3.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Checkbox>
+            </Field>
+            
+            <Field>
+              <label htmlFor="write" className="block dfu awe dfx">Ecriture</label>
+
+              <Checkbox
+                checked={isChekedReadMode}
+                name="write"
+                id="write"
+                onChange={setIsChekedReadMode}
+                className="group block size-4 rounded border bg-white data-[checked]:bg-blue-500"
+              >
+                {/* Checkmark icon */}
+                <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 8L6 11L11 3.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Checkbox>
             </Field>
             </Fieldset>
             
