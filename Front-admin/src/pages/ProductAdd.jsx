@@ -38,8 +38,8 @@ function ProductAdd({ validate, close }) {
 
     let data = Object.fromEntries(new FormData(event.target));
     console.log(data);
-    data.poids = parseInt(data.poids);
-    data.prix = parseInt(data.prix);
+    data.weight = parseFloat(data.weight);
+    data.price = parseFloat(data.price);
     data.categorie = categorieSelected;
     data.disponibilite = parseInt(data.disponibilite);
     data.image = imageURL;
@@ -71,8 +71,8 @@ function ProductAdd({ validate, close }) {
 
               <input
                 type="text"
-                name="titre"
-                id="titre"
+                name="title"
+                id="title"
                 required
                 minLength={2}
                 maxLength={25}
@@ -81,12 +81,12 @@ function ProductAdd({ validate, close }) {
               />
             </Field>
             <Field>
-              <label htmlFor="desc" className="block dfu awe dfx">Description</label>
+              <label htmlFor="description" className="block dfu awe dfx">Description</label>
 
               <textarea
                 type="text"
-                name="desc"
-                id="desc"
+                name="description"
+                id="description"
                 required
                 minLength={2}
                 className="cur rfl dbc afb arq atq aub axv cio bbx bcf bya placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp"
@@ -117,12 +117,12 @@ function ProductAdd({ validate, close }) {
               </Listbox>
             </Field>
             <Field>
-              <label htmlFor="prix" className="block dfu awe dfx">prix</label>
+              <label htmlFor="price" className="block dfu awe dfx">prix</label>
 
               <input
                 type="text"
-                name="prix"
-                id="prix"
+                name="price"
+                id="price"
                 required
                 minLength={2}
                 maxLength={25}
@@ -160,36 +160,35 @@ function ProductAdd({ validate, close }) {
           </Fieldset>
           {categorieSelected === "Canard" ? (<Fieldset>
             <Field>
-              <label htmlFor="dim" className="block dfu awe dfx">dimensions</label>
+              <label htmlFor="dimensions" className="block dfu awe dfx">dimensions</label>
 
               <input
                 type="string"
-                name="dim"
-                id="dim"
+                name="dimensions"
+                id="dimensions"
                 required
                 className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
                 title="Les dimensions doivent être sous le format 00x00"
               />
             </Field>
             <Field>
-              <label htmlFor="poids" className="block dfu awe dfx">poids</label>
+              <label htmlFor="weight" className="block dfu awe dfx">poids</label>
 
               <input
-                type="number"
-                name="poids"
-                id="poids"
+                name="weight"
+                id="weight"
                 required
                 className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
                 title="Les poids doit être au format 00.00kg"
               />
             </Field>
             <Field>
-              <label htmlFor="normes" className="block dfu awe dfx">normes</label>
+              <label htmlFor="standard" className="block dfu awe dfx">normes</label>
 
               <input
                 type="string"
-                name="normes"
-                id="normes"
+                name="standard"
+                id="standard"
                 required
                 min={2}
                 max={255}

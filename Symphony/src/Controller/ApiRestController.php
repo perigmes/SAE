@@ -74,27 +74,26 @@ class ApiRestController extends AbstractController
 	public function createAProduct(Request $request): Response
 	{
 		$article = json_decode($request->getContent(), true);
-		var_dump($article);
 		if (isset($article["article_type"])) {
 			if ($article["article_type"] == "canard") {
-				if (isset($article["titre"])) {
-					if (is_string($article["titre"])) {
+				if (isset($article["title"])) {
+					if (is_string($article["title"])) {
 						if (isset($article['categorie'])) {
 							if (is_string($article["categorie"])) {
-								if (isset($article["prix"])) {
-									if (is_int($article["prix"])) {
+								if (isset($article["price"])) {
+									if (is_float($article["price"])) {
 										if (isset($article["disponibilite"])) {
 											if (is_int($article['disponibilite'])) {
 												if (isset($article["image"])) {
 													if (is_string($article["image"])) {
-														if (isset($article['desc'])) {
-															if (is_string($article['desc'])) {
-																if (isset($article['poids'])) {
-																	if (is_int($article['poids'])) {
-																		if (isset($article['dim'])) {
-																			if (is_string($article['dim'])) {
-																				if (isset($article['normes'])) {
-																					if (is_string($article['normes'])) {
+														if (isset($article['description'])) {
+															if (is_string($article['description'])) {
+																if (isset($article['weight'])) {
+																	if (is_float($article['weight'])) {
+																		if (isset($article['dimensions'])) {
+																			if (is_string($article['dimensions'])) {
+																				if (isset($article['standard'])) {
+																					if (is_string($article['standard'])) {
 																						if (isset($article['isRecyclable'])) {
 																							if (is_bool($article['isRecyclable'])) {
 																								if (isset($article['matiere'])) {
@@ -103,23 +102,23 @@ class ApiRestController extends AbstractController
 																											if (is_string($article['fabrication'])) {
 																												$entity = new Canard();
 																												$formBuilder = $this->createFormBuilder($entity, array('csrf_protection' => false));
-																												$formBuilder->add("titre", TextType::class);
+																												$formBuilder->add("title", TextType::class);
 
 																												$formBuilder->add("categorie", TextType::class);
 
-																												$formBuilder->add("prix", NumberType::class);
+																												$formBuilder->add("price", NumberType::class);
 
 																												$formBuilder->add("disponibilite", IntegerType::class);
 
 																												$formBuilder->add("image", TextType::class);
 
-																												$formBuilder->add("desc", TextType::class);
+																												$formBuilder->add("description", TextType::class);
 
-																												$formBuilder->add("poids", NumberType::class);
+																												$formBuilder->add("weight", NumberType::class);
 
-																												$formBuilder->add('dim', TextType::class);
+																												$formBuilder->add('dimensions', TextType::class);
 
-																												$formBuilder->add("normes", TextType::class);
+																												$formBuilder->add("standard", TextType::class);
 
 																												$formBuilder->add("isRecyclable", CheckboxType::class);
 
@@ -135,7 +134,7 @@ class ApiRestController extends AbstractController
 																														$entity = $form->getData();
 																														$id = hexdec(uniqid()); // $id must be of type int
 																														$entity->setId($id);
-																														$entity->setVendu(0);
+																														$entity->setSelled(0);
 																														$this->entityManager->persist($entity);
 																														$this->entityManager->flush();
 																														$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Catalogue\Article a where a.id like :id");
@@ -340,7 +339,7 @@ class ApiRestController extends AbstractController
 									} else {
 										$response = new Response();
 										$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
-										$response->setContent(json_encode(array('message' => 'type of categorie is invalid. It must be an integer type')));
+										$response->setContent(json_encode(array('message' => 'type of price is invalid. It must be an float type')));
 										$response->headers->set('Content-Type', 'application/json');
 										$response->headers->set('Access-Control-Allow-Origin', '*');
 										$response->headers->set('Access-Control-Allow-Headers', '*');
@@ -349,7 +348,7 @@ class ApiRestController extends AbstractController
 								} else {
 									$response = new Response();
 									$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
-									$response->setContent(json_encode(array('message' => 'Invalid input: no prix found')));
+									$response->setContent(json_encode(array('message' => 'Invalid input: no price found')));
 									$response->headers->set('Content-Type', 'application/json');
 									$response->headers->set('Access-Control-Allow-Origin', '*');
 									$response->headers->set('Access-Control-Allow-Headers', '*');
@@ -358,7 +357,7 @@ class ApiRestController extends AbstractController
 							} else {
 								$response = new Response();
 								$response->setStatusCode(Response::HTTP_BAD_REQUEST); // 400 https://github.com/symfony/http-foundation/blob/5.4/Response.php
-								$response->setContent(json_encode(array('message' => 'type of categorie is invalid. It must be a string type')));
+								$response->setContent(json_encode(array('message' => 'type of price is invalid. It must be a float type')));
 								$response->headers->set('Content-Type', 'application/json');
 								$response->headers->set('Access-Control-Allow-Origin', '*');
 								$response->headers->set('Access-Control-Allow-Headers', '*');
@@ -732,7 +731,6 @@ class ApiRestController extends AbstractController
 				$entity = $form->getData();
 				$id = hexdec(uniqid()); // $id must be of type int
 				$entity->setId($id);
-				$entity->setVendu(0);
 				$this->entityManager->persist($entity);
 				$this->entityManager->flush();
 				$query = $this->entityManager->createQuery("SELECT a FROM App\Entity\Users\User a where a.id like :id");

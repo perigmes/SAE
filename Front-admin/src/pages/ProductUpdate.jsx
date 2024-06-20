@@ -7,7 +7,6 @@ function ProductUpdate({productSelected,validate}) {
   const productStore = useProductStore();
   let [product, setProduct] = useState(null);
   let [error, setError] = useState(null);
-  const categories = ["Canard","Rat","Souris"];
   useEffect(
     () => setProduct(productStore.getProductById(productSelected)),
     [productSelected, productStore, productStore.products]
@@ -89,7 +88,7 @@ function ProductUpdate({productSelected,validate}) {
               className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
   
             >
-              {categories.map((categorie) => (
+              {productStore.categories.map((categorie) => (
                 <option key={categorie} value={categorie}>
                   {categorie}
                 </option>

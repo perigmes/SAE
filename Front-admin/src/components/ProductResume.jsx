@@ -8,7 +8,7 @@ function ProductResume({ product }) {
         <span className="awa axr">rp {product.id}</span>
         <div className="jf lx acc ach">
           <span className="lx rd un awa axr zf asc py-5">Stock {product.disponibilite}</span>
-          <span className="ia lx rd un awa axr zf asc">Vendu {product.vendu}</span>
+          <span className="ia lx rd un awa axr zf asc">Vendu {product.selled}</span>
         </div>
       </figcaption>
     </article>

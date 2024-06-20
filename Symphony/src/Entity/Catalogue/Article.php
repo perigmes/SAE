@@ -27,8 +27,8 @@ class Article
     #[ORM\Column(name: 'disponibilite')]
     private ?int $disponibilite = null;
 
-    #[ORM\Column(name: 'vendu')]
-    private ?int $vendu = null;
+    #[ORM\Column(name: 'selled')]
+    private ?int $selled = null;
 	
     #[ORM\Column(length: 255, name: 'image')]
     private ?string $image = null;
@@ -48,7 +48,7 @@ class Article
         return $this;
     }
 
-    public function getCategorie(): ?int
+    public function getCategorie(): ?string
     {
         return $this->categorie;
     }
@@ -60,33 +60,33 @@ class Article
         return $this;
     }
 
-    public function getTitre(): ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitre(string $title): static
+    public function setTitle(string $title): static
     {
         $this->title = $title;
 
         return $this;
     }
-    public function getDesc(): ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
-    public function setDesc(string $description): static
+    public function setDescription(string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
-    public function getPrix(): ?float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrix(float $price): static
+    public function setPrice(float $price): static
     {
         $this->price = $price;
 
@@ -105,14 +105,14 @@ class Article
         return $this;
     }
 
-    public function getVendu(): ?int
+    public function getSelled(): ?int
     {
-        return $this->vendu;
+        return $this->selled;
     }
 
-    public function setVendu(int $vendu): static
+    public function setSelled(int $selled): static
     {
-        $this->vendu = $vendu;
+        $this->selled = $selled;
 
         return $this;
     }

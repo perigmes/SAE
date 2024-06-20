@@ -7,14 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 class Canard extends Article
 {
-    #[ORM\Column(length: 255,name: 'poids')]
-    private ?float $poids = null;
+    #[ORM\Column(length: 255,name: 'weight')]
+    private ?float $weight = null;
 
     #[ORM\Column(length: 255, name: 'dimensions')]
-    private ?array $dim = null;
+    private ?array $dimensions = null;
 
-    #[ORM\Column(length: 255, name: 'normes')]
-    private ?string $normes = null;
+    #[ORM\Column(length: 255, name: 'standard')]
+    private ?string $standard = null;
 
     #[ORM\Column(length: 255, name: 'recyclable')]
     private ?bool $recyclable = null;
@@ -25,27 +25,27 @@ class Canard extends Article
     #[ORM\Column(length: 255, name: 'fabrication')]
     private ?string $fabrication = null;
     
-    public function getPoids(): ?float
+    public function getWeight(): ?float
     {
-        return $this->poids;
+        return $this->weight;
     }
 
-    public function setPoids(float $poids): static
+    public function setWeight(float $weight): static
     {
-        $this->poids = $poids;
+        $this->weight = $weight;
 
         return $this;
     }
 
-    public function getDim(): ?array
+    public function getDimensions(): ?array
     {
-        return $this->dim;
+        return $this->dimensions;
     }
 
-    public function setDim(string $dim): static
+    public function setDimensions(string $dimensions): static
     {
-        $parts = explode('x', $dim);
-        $this->dim = [
+        $parts = explode('x', $dimensions);
+        $this->dimensions = [
             intval($parts[0]),
             intval($parts[1])
         ];
@@ -53,14 +53,14 @@ class Canard extends Article
         return $this;
     }
 
-    public function getNormes(): ?string
+    public function getStandard(): ?string
     {
-        return $this->normes;
+        return $this->standard;
     }
 
-    public function setNormes(string $normes): static
+    public function setStandard(string $standard): static
     {
-        $this->normes = $normes;
+        $this->standard = $standard;
 
         return $this;
     }
