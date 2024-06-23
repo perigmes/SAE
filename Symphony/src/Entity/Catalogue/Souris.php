@@ -10,7 +10,7 @@ class Souris extends Article
     //Déclaration valeur connectivity
     #[Assert\Type(
         type: 'string',
-        message: 'The va²lue {{ value }} is not a valid {{ type }}.',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
     )]
     #[Assert\NotBlank]
     #[ORM\Column(length: 255,name: 'connectivity')]
