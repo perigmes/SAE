@@ -14,24 +14,15 @@
 <script>
 async function test() { 
     let data = {
-        article_type: "canard",
-		weight: 5.12,
-		dimensions: "",
-		standard: "ouais",
-		matiere: "ouais",
-		fabrication: "ouais",
-	    isRecyclable: true,
-		categorie: "Canard",
 		title: "Le canard en or",
 		price: 8.95,
-		disponibilite: 100,
 		image: "https://www.parisduckstore.fr/wp-content/uploads/2022/01/710F1_7-1.png",
 		description: "Le."
 	};
     document.getElementById("json").innerHTML = JSON.stringify(data, null, 2);
 
     try {
-        let response = await fetch("http://localhost:8000/wp-json/wc/v3/products/55677821", {
+        let response = await fetch("http://localhost:8000/wp-json/wc/v3/products/58969248", {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
