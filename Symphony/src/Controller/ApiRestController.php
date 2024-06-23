@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use App\Entity\Catalogue\Musique;
+use App\Entity\Catalogue\Article;
 use App\Entity\Catalogue\Canard;
 use App\Entity\Catalogue\Souris;
 use App\Entity\Catalogue\Rat;
@@ -645,7 +645,6 @@ class ApiRestController extends AbstractController
 			$formBuilder->add("categorie", TextType::class);
 			$formBuilder->add("description", TextType::class);
 
-
 		// Créer le formulaire et soumettre les données
 		$form = $formBuilder->getForm();
 		$form->submit(json_decode($request->getContent(), true), false); // Soumettre avec les données du corps de la requête
@@ -701,22 +700,31 @@ class ApiRestController extends AbstractController
 
 		$formBuilder = $this->createFormBuilder($article, ['csrf_protection' => false]);
 
-		if ($article instanceof Musique) {
+		if ($article instanceof Canard) {
 			$formBuilder->add("title", TextType::class);
-			$formBuilder->add("artiste", TextType::class);
+			$formBuilder->add("description", TextType::class);
 			$formBuilder->add("price", NumberType::class);
 			$formBuilder->add("disponibilite", IntegerType::class);
-			$formBuilder->add("photo", TextType::class);
-			$formBuilder->add("dateDeParution", TextType::class);
-		} elseif ($article instanceof Livre) {
+			$formBuilder->add("image", TextType::class);
+			$formBuilder->add("categorie", TextType::class);
+
+		} elseif ($article instanceof Rat) {
 			$formBuilder->add("title", TextType::class);
-			$formBuilder->add("auteur", TextType::class);
+			$formBuilder->add("description", TextType::class);
 			$formBuilder->add("price", NumberType::class);
 			$formBuilder->add("disponibilite", IntegerType::class);
-			$formBuilder->add("photo", TextType::class);
-			$formBuilder->add("ISBN", TextType::class, ['required' => true]);
-			$formBuilder->add("nbPages", IntegerType::class);
-			$formBuilder->add("dateDeParution", TextType::class);
+			$formBuilder->add("image", TextType::class);
+			$formBuilder->add("categorie", TextType::class);
+
+		}
+		elseif ($article instanceof Souris) {
+			$formBuilder->add("title", TextType::class);
+			$formBuilder->add("description", TextType::class);
+			$formBuilder->add("price", NumberType::class);
+			$formBuilder->add("disponibilite", IntegerType::class);
+			$formBuilder->add("image", TextType::class);
+			$formBuilder->add("categorie", TextType::class);
+
 		}
 
 		$form = $formBuilder->getForm();

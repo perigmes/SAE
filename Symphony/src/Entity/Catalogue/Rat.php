@@ -11,7 +11,6 @@ use function PHPSTORM_META\type;
 class Rat extends Article
 {
     //Déclaration valeur solde
-
     #[Assert\Type(
         type: 'integer',
         message: 'The value {{ value }} is not a valid {{ type }}.',

@@ -11,9 +11,6 @@ use GuzzleHttp\Client;
 
 use DeezerAPI\Search;
 
-use App\Entity\Catalogue\Livre;
-use App\Entity\Catalogue\Musique;
-use App\Entity\Catalogue\Piste;
 use App\Entity\Catalogue\Canard;
 use App\Entity\Catalogue\Rat;
 use App\Entity\Catalogue\Souris;

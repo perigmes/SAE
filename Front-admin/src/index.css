@@ -5544,6 +5544,9 @@ body {
 .aoj {
   fill: #24292F;
 }
+.data-\[checked\]\:bg-white[data-checked] {
+  background-color: var(--color-white, #000000);
+}
 .aok {
   fill: #60a5fa;
 }

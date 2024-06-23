@@ -64,15 +64,16 @@ class ProductsStore {
         return this._products.find((product) => product.id === id)
     }
 
-    async updateProduct(data) {
-        console.log(data)
-        let product = this.getProductById(data.id);
+    async updateProduct(id,data) {
+        console.log(data);
+        console.log(id)
+        let product = this.getProductById(id);
         if (!product) {
             return { success: false, message: "Produit inexistant" };
         } else {
             try {
-                const response = await fetch(`${API_URL_PRODUITS}/${product.id}`, {
-                    method: 'PUT',
+                const response = await fetch(`${API_URL_PRODUITS}/${id}`, {
+                    method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -102,7 +103,6 @@ class ProductsStore {
                     headers: {
 
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
                        
                     },
                     body: JSON.stringify(data)

@@ -227,18 +227,14 @@ function ProductAdd({ validate, close }) {
             <Field>
               <label htmlFor="isRecyclable" className="block dfu awe dfx">recyclable</label>
 
-              <Checkbox
-                checked={isCheckedRecyclable}
+              <input
+              type="checkbox"
                 name="isRecyclable"
                 id="isRecyclable"
                 onChange={setIsCheckedRecyclable}
-                className="group block size-4 aoj rounded border bg-white data-[checked]:bg-blue-500"
-              >
-                {/* Checkmark icon */}
-                <svg className="stroke-white opacity-0 group-data-[checked]:opacity-100" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 8L6 11L11 3.5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Checkbox>
+                className='cur dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+              />
+                
             </Field>
             <Field>
               <label htmlFor="matiere" className="block dfu awe dfx">matiere</label>
