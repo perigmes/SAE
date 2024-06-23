@@ -14,18 +14,23 @@
 <script>
 async function test() { 
     let data = {
-        article_type: "musique", // ou "livre"
-        titre: "New Title",
-        artiste: "New Artist",
-        prix: 20,
-        disponibilite: 10,
-        image: "new_image_url",
-        dateDeParution: "2024-05-24"
+      "id": "58969248",
+        "categorie": "Rat",
+        "title": "Charlie",
+        "price": "test",
+        "disponibilite": 1,
+        "selled": 0,
+        "image": "https:\/\/i.ibb.co\/9bTfM4F\/chacha.png",
+        "description": "Rencontrez Charlie, le rat malin et \u00e9conome qui sait comment maximiser chaque sou. Toujours \u00e0 l\u2019aff\u00fbt des meilleures affaires, Charlie transforme chaque d\u00e9pense en investissement intelligent. Son talent pour trouver les bons plans et sa prudence l\u00e9gendaire en mati\u00e8re de d\u00e9penses font de lui un compagnon de choix pour ceux qui cherchent \u00e0 \u00e9conomiser sans sacrifier la qualit\u00e9 de vie. Avec Charlie \u00e0 vos c\u00f4t\u00e9s, vous d\u00e9couvrirez comment naviguer dans le monde financier avec assurance et intelligence. Que vous soyez un collectionneur de tr\u00e9sors cach\u00e9s ou un novice en qu\u00eate de conseils avis\u00e9s, Charlie est pr\u00eat \u00e0 vous guider vers un avenir plus riche et plus responsable. Ne manquez pas l'opportunit\u00e9 d'accueillir cet expert de l'\u00e9pargne dans votre vie !",
+        "solde": 1000,
+        "height": 120,
+        "age": 20,
+        "article_type": "rat"
     };
     document.getElementById("json").innerHTML = JSON.stringify(data, null, 2);
 
     try {
-        let response = await fetch("http://localhost:8000/wp-json/wc/v3/products/55897826546531", {
+        let response = await fetch("http://localhost:8000/wp-json/wc/v3/products/000000", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
