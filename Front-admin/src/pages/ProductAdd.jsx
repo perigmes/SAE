@@ -231,7 +231,8 @@ function ProductAdd({ validate, close }) {
               type="checkbox"
                 name="isRecyclable"
                 id="isRecyclable"
-                onChange={setIsCheckedRecyclable}
+                checked={isCheckedRecyclable}
+                onChange={()=>setIsCheckedRecyclable(!isCheckedRecyclable)}
                 className='cur dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
               />
                 
