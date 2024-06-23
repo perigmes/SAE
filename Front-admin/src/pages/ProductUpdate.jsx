@@ -7,19 +7,38 @@ function ProductUpdate({productSelected,validate}) {
   const productStore = useProductStore();
   let [product, setProduct] = useState(null);
   let [error, setError] = useState(null);
+  const [imageURL, setImageURL] = useState("");
+
   useEffect(
     () => setProduct(productStore.getProductById(productSelected)),
     [productSelected, productStore, productStore.products]
   );
-
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // Base64 URL
+        setImageURL(reader.result);
+        setError(null);
+      };
+      reader.onerror = () => {
+        setError('Erreur lors de la lecture du fichier');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   let handleSubmit = async (event) => {
     const id= productSelected;
+    console.log(productSelected)
     event.preventDefault();
     let data = Object.fromEntries(new FormData(event.target));
-    let { success, message } = await productStore.updateProduct({
+    data.image = product.image;
+
+    let { success, message } = await productStore.updateProduct(
       id,
-      ...data,
-    });
+      data,
+    );
     if (success) {
       validate()
     } else {
@@ -78,11 +97,24 @@ function ProductUpdate({productSelected,validate}) {
             />
             </Field>
             <Field>
-            <label htmlFor="categories">catégorie</label>
+              <label htmlFor="image" className="block dfu awe dfx">image</label>
+
+              <input
+                type="file"
+                name="image"
+                onChange={handleImageChange}
+                id="image"
+                accept="image/png, image/jpeg, image/webp"
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="L'image doit être au format jpeg,png ou webp"
+              />
+            </Field>
+            <Field>
+            <label htmlFor="categorie">catégorie</label>
 
             <Select
-              name="categories"
-              id="categories"
+              name="categorie"
+              id="categorie"
               defaultValue={product.categorie}
               required
               className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
