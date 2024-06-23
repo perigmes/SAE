@@ -1,37 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react";
 import { useUserStore } from "../stores";
-import { Fieldset, Field, Select, Button } from "@headlessui/react";
+import { Fieldset, Field, Button } from "@headlessui/react";
 
 function UserUpdate({ userSelected, validate }) {
   const userStore = useUserStore();
   let [user, setUser] = useState(null);
   let [error, setError] = useState(null);
+  const [imageURL, setImageURL] = useState("");
 
-  useEffect(() => {
-    const fetchedUser = userStore.getUserById(userSelected);
-    if (fetchedUser) {
-      setUser(fetchedUser);
-    } else {
-      setError("User not found");
+  useEffect(
+    () => setUser(userStore.getUserById(userSelected)),
+    [userSelected, userStore, userStore.users]
+  );
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // Base64 URL
+        setImageURL(reader.result);
+        setError(null);
+      };
+      reader.onerror = () => {
+        setError('Erreur lors de la lecture du fichier');
+      };
+      reader.readAsDataURL(file);
     }
-  }, [userSelected, userStore]);
+  };
 
-  const handleSubmit = async (event) => {
+  let handleSubmit = async (event) => {
+    const id= userSelected;
+    console.log(userSelected)
     event.preventDefault();
-    const id = userSelected;
     let data = Object.fromEntries(new FormData(event.target));
+    data.pp = user.pp;
 
-    try {
-      let { success, message } = await userStore.updateUser({ id, ...data });
-      if (success) {
-        validate();
-      } else {
-        setError(message);
-      }
-    } catch (error) {
-      console.error("Error submitting the form:", error);
-      setError("An error occurred while updating the user.");
+    let { success, message } = await userStore.updateUser(
+      id,
+      data,
+    );
+    if (success) {
+      validate()
+    } else {
+      setError(message);
     }
   };
 
@@ -88,6 +101,19 @@ function UserUpdate({ userSelected, validate }) {
                   defaultValue={user.email}
                 />
               </Field>
+              <Field>
+              <label htmlFor="pp" className="block dfu awe dfx">Image</label>
+
+              <input
+                type="file"
+                name="pp"
+                onChange={handleImageChange}
+                id="pp"
+                accept="image/png, image/jpeg, image/webp"
+                className='cur rfl dbc afb arq atq aub axv cio bbx bcf placeholder:axr focus:ring-2 focus:ring-inset focus:ring-indigo-600 awa awp'
+                title="L'image doit être au format jpeg,png ou webp"
+              />
+            </Field>
             </Fieldset>
             <div className="lx caw zn zg">
               <Button

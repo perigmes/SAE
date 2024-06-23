@@ -17,7 +17,7 @@ use App\Entity\Catalogue\Canard;
 use App\Entity\Catalogue\Souris;
 use App\Entity\Catalogue\Rat;
 
-
+use App\Entity\Users\User;
 use App\Entity\Users\Admin;
 
 
@@ -966,4 +966,62 @@ class ApiRestController extends AbstractController
 			return $response;
 		}
 	}
+
+	#[Route('/wp-json/wc/v3/users/{id}', name: 'patch-a-user', methods: ['PATCH'])]
+	public function patchAUser(string $id, Request $request): Response
+	{
+		$userData = json_decode($request->getContent(), true);
+		$userRepository = $this->entityManager->getRepository(User::class);
+		$user = $userRepository->find($id);
+
+		if (!$user) {
+			return new Response(
+				json_encode(['message' => 'Resource not found: No user found for id ' . $id]),
+				Response::HTTP_NOT_FOUND,
+				['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+			);
+		}
+
+		$formBuilder = $this->createFormBuilder($user, ['csrf_protection' => false]);
+
+		if ($user instanceof Admin) {
+			$formBuilder->add("pseudo", TextType::class);
+			$formBuilder->add("email", TextType::class);
+			$formBuilder->add("mdp", TextType::class);
+			$formBuilder->add("pp", TextType::class);
+		}
+
+		$form = $formBuilder->getForm();
+		$form->submit($userData, false);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+			try {
+				$this->entityManager->flush();
+
+				return new Response(
+					json_encode(['message' => 'User updated successfully']),
+					Response::HTTP_OK,
+					['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+				);
+			} catch (ConstraintViolationException $e) {
+				return new Response(
+					json_encode(['message' => 'Invalid input', 'errors' => 'Constraint violation']),
+					Response::HTTP_UNPROCESSABLE_ENTITY,
+					['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+				);
+			}
+		}
+
+		$errors = [];
+		foreach ($form->getErrors(true) as $error) {
+			$errors[] = $error->getMessage();
+		}
+
+		return new Response(
+			json_encode(['message' => 'Invalid input', 'errors' => $errors]),
+			Response::HTTP_BAD_REQUEST,
+			['Content-Type' => 'application/json', 'Access-Control-Allow-Origin' => '*']
+		);
+	}
+
 }

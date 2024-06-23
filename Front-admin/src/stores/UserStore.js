@@ -50,22 +50,22 @@ class UserStore {
         return this._users.find((user) => user.id === id)
     }
 
-    async updateUser(data) {
-        let user = this.getUserById(data.id);
+    async updateUser(id,data) {
+        console.log("Data du boug:", data);
+        console.log("Id du boug:", id)
+        let user = this.getUserById(id);
         if (!user) {
-            console.error("User not found:", data.id); // Log si l'utilisateur n'est pas trouvé
+            console.error("User not found:", data.id);
             return { success: false, message: "Administrateur inexistant" };
         } else {
             try {
-                console.log("Updating user:", user.id, data); // Log de débogage
-                const response = await fetch(`${API_URL_USERS}/${user.id}`, {
-                    method: 'PUT',
+                const response = await fetch(`${API_URL_USERS}/${id}`, {
+                    method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(data)
                 });
-                console.log("Réponse requete: ", response);
                 
                 if (response.ok) {
                     let { id, ...updatedData } = data;
@@ -74,11 +74,9 @@ class UserStore {
                     });
                     return { success: true, message: "Administrateur modifié" };
                 } else {
-                    console.error("Failed to update user:", response.status, response.statusText); // Log l'erreur de mise à jour
                     return { success: false, message: `Request failed with status ${response.status}` };
                 }
             } catch (error) {
-                console.error("Error updating user:", error); // Log l'erreur réseau
                 return { success: false, message: `${error}` };
             }
         }
